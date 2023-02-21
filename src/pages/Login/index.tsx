@@ -14,9 +14,10 @@ export default function Login() {
 
   const navigateToSignUp = () => history.push('/sign-up');
   const handleSubmit = async (payload: any) => {
-    const params = _.pick(payload, ['username', 'password']);
+    const params = _.pick(payload, ['email', 'password']);
     try {
       const data = await login(params);
+
       const { token, refreshToken } = data.data;
       Cookies.set('token', token, {
         expires: payload.rememberMe ? 999999 : undefined,
@@ -41,8 +42,8 @@ export default function Login() {
             <h2>{t('common.login')}</h2>
           </Row>
           <Form.Item
-            label={t('common.username')}
-            name="username"
+            label={t('common.email')}
+            name="email"
             rules={[
               {
                 required: true,
@@ -78,9 +79,6 @@ export default function Login() {
               {t('common.signUp').toUpperCase()}
             </Button>
           </Form.Item>
-          <div>
-            <p>Account: admin / 123456</p>
-          </div>
         </Form>
       </Card>
     </div>

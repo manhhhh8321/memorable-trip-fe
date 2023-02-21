@@ -2,7 +2,7 @@
   "common": {
     "login": "Login",
     "signUp": "Sign up",
-    "username": "Username",
+    "email": "Email",
     "password": "Password",
     "rememberMe": "Remember me"
   },
