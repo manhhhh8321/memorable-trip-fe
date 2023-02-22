@@ -1,8 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
-import { Card, Input, Button, Form, Row } from 'antd';
+import { Card, Input, Button, Form, Row, Radio } from 'antd';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash';
+import { signUp } from 'api/authentication';
+import { handleErrorMessage } from 'helper';
 
 export default function SignUp() {
   const history = useHistory();
@@ -10,22 +13,34 @@ export default function SignUp() {
 
   const navigateToLogIn = () => history.push('/login');
 
-  const handleSubmit = (payload: any) => null;
+  const handleSubmit = async (payload: any) => {
+    const params = _.pick(payload, ['email', 'password', 'passwordConfirm', 'firstName', 'lastName', 'gender', 'phone']);
+
+    try {
+      const response = await signUp(params);
+
+      if (response) {
+        navigateToLogIn()
+      }
+    } catch (e) {
+      handleErrorMessage(e);
+    }
+  };
 
   return (
     <div className={styles.signUpContainer}>
       <Card bordered className={styles.signUpForm}>
         <Form onFinish={handleSubmit}>
           <Row justify="center">
-            <h2>Đăng ký</h2>
+            <h2>Sign up</h2>
           </Row>
           <Form.Item
-            label="Tên đăng nhập"
-            name="username"
+            label="Enter your email"
+            name="email"
             rules={[
               {
                 required: true,
-                message: 'Vui lòng nhập',
+                message: 'Please enter your email',
               },
             ]}
             labelAlign="left"
@@ -34,8 +49,77 @@ export default function SignUp() {
           >
             <Input />
           </Form.Item>
+
           <Form.Item
-            label="Mật khẩu"
+            label="Enter your first name"
+            name="firstName"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your first name',
+              },
+            ]}
+            labelAlign="left"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Enter your last name"
+            name="lastName"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your last name',
+              },
+            ]}
+            labelAlign="left"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <Input />
+          </Form.Item>
+
+         
+          <Form.Item
+            label='Select your gender'
+            name="gender"
+            rules={[
+              {
+                required: true,
+                message: 'Select your gender',
+              }
+            ]}
+            labelAlign="left"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <Radio.Group>
+              <Radio name='gender' value={ "male"}>Male</Radio>
+              <Radio name='gender' value={"female"}>Female</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item
+            label="Enter your phone number"
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your phone number',
+              },
+            ]}
+            labelAlign="left"
+            labelCol={{ span: 24 }}
+            wrapperCol={{ span: 24 }}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
             name="password"
             rules={[{ required: true, message: t('validate.passwordRequired') }]}
             labelAlign="left"
@@ -45,7 +129,7 @@ export default function SignUp() {
             <Input.Password />
           </Form.Item>
           <Form.Item
-            label="Xác nhận mật khẩu"
+            label="Confirm password"
             name="passwordConfirm"
             rules={[{ required: true, message: t('validate.passwordRequired') }]}
             dependencies={['password']}
@@ -57,12 +141,12 @@ export default function SignUp() {
           </Form.Item>
           <Form.Item labelCol={{ span: 24 }}>
             <Button block type="primary" htmlType="submit">
-              Đăng ký
+              Sign up
             </Button>
           </Form.Item>
           <Form.Item labelCol={{ span: 24 }}>
             <Button block type="dashed" htmlType="button" onClick={navigateToLogIn}>
-              Đăng nhập
+              Login
             </Button>
           </Form.Item>
         </Form>

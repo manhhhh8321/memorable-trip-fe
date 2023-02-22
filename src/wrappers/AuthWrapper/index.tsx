@@ -7,8 +7,6 @@ import styles from './styles.module.scss';
 import { useQuery } from 'react-query';
 import { getProfile } from 'api/profile';
 
-const Tasks = lazy(() => import('pages/Tasks'));
-
 export default function PageWrapper() {
   const isAuthenticated = !!Cookies.get('token');
   const { data: profile } = useQuery('profile', getProfile, { enabled: isAuthenticated });
@@ -23,7 +21,7 @@ export default function PageWrapper() {
         <div className={styles.pageContent}>
           <Suspense fallback={null}>
             <Switch>
-              <Route path="/tasks" component={Tasks} />
+              <Route path="/tasks" />
             </Switch>
           </Suspense>
         </div>
