@@ -15,14 +15,13 @@ const queryClient = new QueryClient({
 })
 
 function App() {
-  console.log('app started')
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={themeOverride}>
-          <ToastProvider>
+          {/* <ToastProvider> */}
             <RouterProvider router={router} />
-          </ToastProvider>
+          {/* </ToastProvider> */}
         </ChakraProvider>
       </QueryClientProvider>
       

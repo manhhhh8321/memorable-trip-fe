@@ -14,9 +14,10 @@ export const publicRoutes: RouteObject = {
   element: <DefaultLayout />,
   errorElement: <BlankPage />,
   children: [
-    { 
+    {
       index: true,
-      element: <HomePage />
+      element: <HomePage/>
+      // element: <Navigate to={navigationFn.HOME} replace />
     }
   ]
 }
