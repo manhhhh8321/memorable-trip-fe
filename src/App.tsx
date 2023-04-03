@@ -15,7 +15,6 @@ const queryClient = new QueryClient({
 })
 
 function App() {
-  console.log('app started')
   return (
     <>
       <QueryClientProvider client={queryClient}>
