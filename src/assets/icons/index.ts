@@ -5,11 +5,14 @@ import { textLogo } from "./text-logo";
 import { textSecondaryLogo } from "./text-secondary-logo";
 import { usersIcon } from "./users";
 import { heart } from "./heart-icon";
+import { star } from "./base-icon";
 
 export interface IIconProps {
-  w?: number;
-  h?: number;
+  w?: number | string;
+  h?: number | string;
   color?: string;
+  className?: string;
+  onClick?: (e?: any) => void;
 }
 
 export const Icons = {
@@ -19,5 +22,6 @@ export const Icons = {
   logoPrimary,
   textPrimaryLogo,
   usersIcon,
-  heart
+  heart,
+  star,
 };
