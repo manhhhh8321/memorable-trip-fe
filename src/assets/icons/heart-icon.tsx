@@ -1,7 +1,7 @@
 import { IIconProps } from ".";
 
 export const heart = (props: IIconProps) => {
-  const { h, w, color = 'rgba(0, 0, 0, 0.5)' } = props
+  const { h, w, stroke = 'white', color = 'rgba(0, 0, 0, 0.5)' } = props
   return (
     <svg
       viewBox='0 0 32 32'
@@ -14,7 +14,7 @@ export const heart = (props: IIconProps) => {
         fill: color,
         height: 24,
         width: 24,
-        stroke: 'white',
+        stroke: stroke,
         strokeWidth: 2,
         overflow: 'visible'
       }}
