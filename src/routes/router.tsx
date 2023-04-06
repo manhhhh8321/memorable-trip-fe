@@ -17,6 +17,6 @@ const PrivacyPocily = () => {
 }
 export const router = createBrowserRouter([
   // { ...authRoutes },
-  // { ...adminRoutes },
+  { ...adminRoutes },
   { ...publicRoutes},
 ])
