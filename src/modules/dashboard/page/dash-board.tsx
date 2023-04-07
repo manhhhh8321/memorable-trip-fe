@@ -29,7 +29,6 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           </Box>
         </Box>
         <Box flexGrow={1} p='4'>
-          {/* Page content goes here */}
           {children}
         </Box>
       </Flex>
