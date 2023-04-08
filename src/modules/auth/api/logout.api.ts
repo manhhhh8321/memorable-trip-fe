@@ -1,30 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { trackPromise } from "react-promise-tracker";
-import { setStorage } from "~/helper";
+import { clearStorage, setStorage } from "~/helper";
 import { useCustomToast } from "~/hooks";
 import axiosClient from "~/libs/axios/axiosClient";
+import { navigationFn } from "~/routes";
 
+const sleep = (ms: number)=> new Promise(res=>setTimeout(res,ms))
 
-type TLogin = {
-  email: string;
-  password: string;
-};
+const logoutFn = () =>
+  trackPromise(sleep(500));
 
-const loginFn = (body: TLogin) =>
-  trackPromise(axiosClient.post("/auth/login", body));
-
-export const useMutationLogin = () => {
+export const useMutationLogout = () => {
   const { toastSuccess, toastFail } = useCustomToast();
 
   return useMutation({
-    mutationFn: loginFn,
-    mutationKey: "login",
+    mutationFn: logoutFn,
+    mutationKey: "logout",
     onSuccess: (data: any) => {
       console.log(data)
-      setStorage("accessToken", data?.accessToken);
+      clearStorage("accessToken");
       toastSuccess({
-        title: "Login successfully",
+        title: "Logout successfully",
       });
     },
 

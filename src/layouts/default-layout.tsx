@@ -14,10 +14,12 @@ export const DefaultLayout = () => {
 
   return (
     <ScrollToTop>
-      <Box w={'100%'} minH='100vh' pos='relative' px={{ xl: 8, '2xl': 20 }} bgColor='white' transition='.3s ease-in-out'>
+      <Box w={'100%'} minH='100vh' pos='relative' bgColor='white' transition='.3s ease-in-out'>
         <Header />
         {promiseInProgress && <LoadingOverlay />}
-        <Outlet />
+        <Box w={'100%'} minH='100vh' pos='relative' px={{ lg: 8, xl: 8, '2xl': 20 }}>
+          <Outlet />
+        </Box>
       </Box>
     </ScrollToTop>
   )

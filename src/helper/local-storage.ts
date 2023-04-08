@@ -3,20 +3,16 @@ import { isClient } from "./../configs/enviroments";
 const USER = "user";
 
 type TStoredUser = {
-  access_token?: string;
-  data?: {
-    email?: string;
-    name?: string;
-    avatar?: string;
-  };
+  accessToken?: string;
 };
 
 export const getStoredUser = <T = TStoredUser>(): T | null => {
-  if (!isClient) return null;
-  const storedUser =
-    typeof window !== "undefined" ? localStorage.getItem(USER) : null;
+  return null
+  // if (!isClient) return null;
+  // const storedUser =
+  //   typeof window !== "undefined" ? localStorage.getItem(USER) : null;
 
-  return storedUser ? (JSON.parse(storedUser) as T) : null;
+  // return storedUser ? (JSON.parse(storedUser) as T) : null;
 };
 
 export const setStorage = <T>(key: string, data: T) => {
@@ -31,7 +27,7 @@ export const clearStorage = (key: string) => {
 
 export const getAccessToken = () => {
   if (!isClient) return null;
-  const accessToken = getStoredUser<TStoredUser>()?.access_token || null;
+  const accessToken = localStorage.getItem('accessToken') || null;
 
   return accessToken ?? null;
 };

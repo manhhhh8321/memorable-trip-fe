@@ -22,7 +22,7 @@ export const HomePage = () => {
   })
   // const [hasMore, setHasMore] = useState(true);
   const listRef = useRef<any>(null)
-  const { data, error, isLoading, isFetching, fetchMore, canFetchMore } = useQueryListProduct(pagination)
+  // const { data, error, isLoading, isFetching, fetchMore, canFetchMore } = useQueryListProduct(pagination)
   const handleScroll = debounce(() => {
     // const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     // if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading && data && data?.pages?.length < pagination._limit) {
@@ -34,13 +34,14 @@ export const HomePage = () => {
 
     if (
       listRef.current &&
-      window.innerHeight + window.scrollY > listRef.current.offsetTop + listRef.current.offsetHeight 
+      window.innerHeight + window.scrollY > listRef.current.offsetTop + listRef.current.offsetHeight
     ) {
       setPagination({ ...pagination, _start: pagination._start + 1 })
       // listRef.current?.scrollIntoView()
       console.log(
         window.innerHeight + window.scrollY,
-        listRef.current.offsetTop + listRef.current.offsetHeight,listRef.current.offsetTop,
+        listRef.current.offsetTop + listRef.current.offsetHeight,
+        listRef.current.offsetTop,
         listRef.current.offsetHeight
       )
       window.scrollTo(0, listRef.current.offsetTop)
@@ -48,15 +49,15 @@ export const HomePage = () => {
       // console.log(lastPage)
       // fetchMore()
       console.log('second')
-      return;
+      return
     }
-      // fetchMore()
+    // fetchMore()
 
     console.log('first')
     setPagination({ ...pagination, _start: pagination._start + 1 })
-  },500)
+  }, 500)
   // console.log(isFetchingMore)
-  
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     console.log(pagination)
@@ -76,7 +77,6 @@ export const HomePage = () => {
 
   //   return () => window.removeEventListener('scroll', handleScroll)
   // }, [])
-  console.log(isFetching)
   return (
     <Box>
       {/* <Grid
@@ -93,12 +93,14 @@ export const HomePage = () => {
       </Grid> */}
       <div ref={listRef}>
         {/* Render danh sách người dùng */}
-        {data &&
-          Array(10).fill(0)?.map((val: any,i) => (
-            <Text key={i} p={10}>
-              Text
-            </Text>
-          ))}
+        {/* {data &&
+          Array(10)
+            .fill(0)
+            ?.map((val: any, i) => (
+              <Text key={i} p={10}>
+                Text
+              </Text>
+            ))} */}
         {/* {data &&
           data.pages
             ?.map((page: any, i) =>
@@ -108,7 +110,7 @@ export const HomePage = () => {
             )} */}
 
         {/* Hiển thị thông báo khi đang fetch dữ liệu */}
-        {isLoading && <div>Loading...</div>}
+        {/* {isLoading && <div>Loading...</div>} */}
       </div>
     </Box>
   )
