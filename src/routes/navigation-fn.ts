@@ -1,6 +1,8 @@
 export const navigationFn = {
   HOME: "/",
 
+  ADMIN_LOGIN: "/admin/login",
+  ADMIN_DASHBOARD: "/admin/dashboard",
   LOGIN: "/login",
   FORGOT_PASSWORD: "/forgot-password",
   VERIFY_CODE: "/verify-code",

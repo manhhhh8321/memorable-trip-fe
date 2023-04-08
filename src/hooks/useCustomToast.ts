@@ -1,28 +1,27 @@
-import React from "react";
-import { useToast, UseToastOptions } from "@chakra-ui/react";
-
-interface ToastProps extends UseToastOptions {}
+import { useToast } from '@chakra-ui/react'
 
 export const useCustomToast = () => {
-  const toast = useToast();
+  const toast = useToast()
 
-  const toastSuccess = (props: ToastProps) =>
+  const toastSuccess = ({ title }: { title: string }) => {
     toast({
-      status: "success",
-      duration: 4000,
+      title,
+      status: 'success',
+      duration: 3000,
       isClosable: true,
-      position: "top-right",
-      ...props,
-    });
+      position: 'top-right'
+    })
+  }
 
-  const toastFail = (props: ToastProps) =>
+  const toastFail = ({ title }: { title: string }) => {
     toast({
-      status: "error",
-      duration: 4000,
+      title,
+      status: 'error',
+      duration: 3000,
       isClosable: true,
-      position: "top-right",
-      ...props,
-    });
+      position: 'top-right'
+    })
+  }
 
-  return { toastSuccess, toastFail };
-};
+  return { toastSuccess, toastFail }
+}

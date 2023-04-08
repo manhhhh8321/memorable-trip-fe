@@ -2,38 +2,27 @@ import { RouteObject } from 'react-router'
 import { Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-import { RequiredAuth } from './required-auth'
+import { AdminRequiredAuth, RequiredAuth } from './required-auth'
 import { navigationFn } from './navigation-fn'
 import { DefaultLayout } from '~/layouts'
 import { BlankPage } from '~/modules'
 import { homeRoutes } from './home-routes'
 import DashboardLayout from '~/modules/dashboard/page/dash-board'
 import ManageUsersTable from '~/modules/dashboard/components/manage-user'
-
-const users = [
-  { id: 1, name: "John Doe", email: "johndoe@example.com", role: "Admin" },
-  { id: 2, name: "Jane Doe", email: "janedoe@example.com", role: "User" },
-  // add more users here...
-];
-
-const handleViewUser = (user: any) => {
-  // handle user view event...
-};
-
-const handleEditUser = (user: any) => {
-  // handle user edit event...
-};
-
-const handleDeleteUser = (user: any) => {
-  // handle user delete event...
-};
+import { AdminLoginLayout } from '~/modules/dashboard/page/login-form'
+import { EditUserForm } from '~/modules/dashboard/page/edit-user'
+import { EditUser } from '~/modules/dashboard/components/edit-user'
+import { ManageBookings } from '~/modules/dashboard/components/manage-booking'
 
 export const adminRoutes: RouteObject = {
-  element: <RequiredAuth />,
   errorElement: <BlankPage />,
   children: [
     {
       children: [
+        {
+          path: '/admin/login',
+          element: <AdminLoginLayout />
+        },
         {
           path: '/admin/dashboard',
           element: (
@@ -46,12 +35,15 @@ export const adminRoutes: RouteObject = {
           path: '/admin/manage-users',
           element: (
             <DashboardLayout>
-              <ManageUsersTable
-                users={users}
-                onView={handleViewUser}
-                onEdit={handleEditUser}
-                onDelete={handleDeleteUser}
-              />
+              <ManageUsersTable />
+            </DashboardLayout>
+          )
+        },
+        {
+          path: '/admin/manage-users/:userId/edit',
+          element: (
+            <DashboardLayout>
+              <EditUser />
             </DashboardLayout>
           )
         },
@@ -59,9 +51,14 @@ export const adminRoutes: RouteObject = {
           path: '/admin/manage-bookings',
           element: (
             <DashboardLayout>
-              <h1>Mange bookings!</h1>
+              <ManageBookings />
             </DashboardLayout>
           )
+        },
+
+        {
+          path: '/admin/*',
+          element: <Navigate replace to='/admin/dashboard' />
         }
       ]
     }
@@ -69,21 +66,21 @@ export const adminRoutes: RouteObject = {
 }
 
 // Loading spinner component
-const Loading = () => <div>Loading...</div>;
+const Loading = () => <div>Loading...</div>
 
 // Wrap the Route object in a component to add the loading spinner
 const AdminRoutes = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    setIsLoading(false)
+  }, [])
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading />
   }
 
-  return <Navigate replace to="/admin/dashboard" />;
-};
+  return <Navigate replace to='/admin/dashboard' />
+}
 
-export default AdminRoutes;
+export default AdminRoutes
