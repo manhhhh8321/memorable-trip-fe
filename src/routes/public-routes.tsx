@@ -9,6 +9,7 @@ import { navigationFn } from './navigation-fn'
 import { DefaultLayout } from '~/layouts'
 import { BlankPage, HomePage } from '~/modules'
 import { homeRoutes } from './home-routes'
+import { communityRoutes } from './community-routes'
 
 export const publicRoutes: RouteObject = {
   element: <DefaultLayout />,
@@ -18,6 +19,7 @@ export const publicRoutes: RouteObject = {
       index: true,
       element: <HomePage/>
       // element: <Navigate to={navigationFn.HOME} replace />
-    }
+    },
+    {...communityRoutes},
   ]
 }

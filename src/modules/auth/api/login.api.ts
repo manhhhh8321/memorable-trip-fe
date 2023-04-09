@@ -4,6 +4,7 @@ import { trackPromise } from "react-promise-tracker";
 import { setStorage } from "~/helper";
 import { useCustomToast } from "~/hooks";
 import axiosClient from "~/libs/axios/axiosClient";
+import { navigationFn } from "~/routes";
 
 
 type TLogin = {
@@ -16,13 +17,14 @@ const loginFn = (body: TLogin) =>
 
 export const useMutationLogin = () => {
   const { toastSuccess, toastFail } = useCustomToast();
-
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: loginFn,
     mutationKey: "login",
     onSuccess: (data: any) => {
       console.log(data)
       setStorage("accessToken", data?.accessToken);
+      navigate(navigationFn.COMMUNITY_COMMIT)
       toastSuccess({
         title: "Login successfully",
       });

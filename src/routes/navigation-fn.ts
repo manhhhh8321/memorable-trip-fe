@@ -9,7 +9,7 @@ export const navigationFn = {
   HOME_INFORMATION: "/home",
   CHANGE_PASSWORD: "/admin/change-password",
 
-  BABY_TRACKER: "/baby-tracker",
+  COMMUNITY_COMMIT: "/community-commit",
   ADD_CHECKUP: "/baby-tracker/add",
   EDIT_CHECKUP: "/baby-tracker/:id",
 
