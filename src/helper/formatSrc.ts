@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.VITE_MEDIA_URL;
+const baseUrl = import.meta.env.MEDIA_URL;
 
 export const formatSrc = (responseSrc: string) => {
   return baseUrl + responseSrc;

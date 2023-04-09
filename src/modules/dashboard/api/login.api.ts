@@ -21,8 +21,8 @@ export const useMutationLogin = () => {
     mutationFn: loginFn,
     mutationKey: 'login',
     onSuccess: (data) => {
-      setStorage('user', data?.data)
-      // navigate(navigationFn.ADMIN_INFORMATION)
+      setStorage('user', data)
+      navigate(navigationFn.ADMIN_DASHBOARD)
       toastSuccess({
         title: 'Login successfully'
       })
