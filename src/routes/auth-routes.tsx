@@ -11,22 +11,22 @@ export const authRoutes: RouteObject = {
     {
       element: <AuthLayout />,
       children: [
-        // {
-        //   path: '/login',
-        //   element: <LoginPage />
-        // },
-        // {
-        //   path: '/forgot-password',
-        //   element: <></>
-        // },
-        // {
-        //   path: '/reset-password',
-        //   element: <></>
-        // },
-        // {
-        //   path: 'verify-code',
-        //   element: <></>
-        // }
+        {
+          path: '/login',
+          element: <LoginPage />
+        },
+        {
+          path: '/forgot-password',
+          element: <></>
+        },
+        {
+          path: '/reset-password',
+          element: <></>
+        },
+        {
+          path: 'verify-code',
+          element: <></>
+        }
       ]
     }
   ]

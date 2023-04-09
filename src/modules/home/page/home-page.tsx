@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Text, calc } from '@chakra-ui/react'
+import { Box, Grid, Link, Stack, Text, calc } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { CardItem } from '~/components'
 import { listProducts } from '~/mocks'
@@ -91,8 +91,16 @@ export const HomePage = () => {
         ))}
       </Grid> */}
       <Box>
-        <Grid templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)', '2xl': 'repeat(6, 1fr)' }} gap={{lg:8,xl:8,'2xl': 10}}>
-          {data && data?.data?.items?.map((val: any, i: number) => <CardItem key={i} data={val} />)}
+        <Grid
+          templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)', '2xl': 'repeat(6, 1fr)' }}
+          gap={{ lg: 8, xl: 8, '2xl': 10 }}
+        >
+          {data &&
+            data?.data?.items?.map((val: any, i: number) => (
+              <Link key={i} href={`/room/${val.id}`}>
+                <CardItem data={val} />
+              </Link>
+            ))}
         </Grid>
       </Box>
     </Box>
