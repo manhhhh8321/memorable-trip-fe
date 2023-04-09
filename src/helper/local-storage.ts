@@ -1,34 +1,46 @@
-import { isClient } from "./../configs/enviroments";
+import { isClient } from './../configs/enviroments'
 
-const USER = "user";
+const USER = 'user'
 
 type TStoredUser = {
-  accessToken?: string;
-  refreshToken?: string;
-};
+  accessToken?: string
+  data?: {
+    email?: string
+    name?: string
+    avatar?: string
+  }
+}
 
 export const getStoredUser = <T = TStoredUser>(): T | null => {
-  // return null
-  if (!isClient) return null;
-  const storedUser =
-    typeof window !== "undefined" ? localStorage.getItem(USER) : null;
+  if (!isClient) return null
+  const storedUser = typeof window !== 'undefined' ? localStorage.getItem(USER) : null
 
-  return storedUser ? (JSON.parse(storedUser) as T) : null;
-};
+  if (storedUser) {
+    try {
+      const parsedUser = JSON.parse(storedUser) as T
+      return parsedUser
+    } catch (error) {
+      console.error('Error parsing stored user:', error)
+    }
+  }
+
+  return null
+}
+
 
 export const setStorage = <T>(key: string, data: T) => {
-  if (!isClient) return;
-  localStorage.setItem(key, JSON.stringify(data || ''));
-};
+  if (!isClient) return
+  localStorage.setItem(key, JSON.stringify(data))
+}
 
 export const clearStorage = (key: string) => {
-  if (!isClient) return;
-  localStorage.removeItem(key);
-};
+  if (!isClient) return
+  localStorage.removeItem(key)
+}
 
 export const getAccessToken = () => {
-  if (!isClient) return null;
-  const accessToken = getStoredUser<TStoredUser>()?.accessToken || null;
+  if (!isClient) return null
+  const accessToken = getStoredUser<TStoredUser>()?.accessToken || null
 
-  return accessToken ?? null;
-};
+  return accessToken ?? null
+}

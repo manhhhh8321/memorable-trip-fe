@@ -11,19 +11,18 @@ type TLogin = {
   password: string
 }
 
-const loginFn = (body: TLogin) =>
-  trackPromise(axiosClient.post("/auth/login", body));
+const loginFn = (body: TLogin) => trackPromise(axiosClient.post('/auth/login/admin', body))
 
 export const useMutationLogin = () => {
-  const { toastSuccess, toastFail } = useCustomToast();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const { toastSuccess, toastFail } = useCustomToast()
+
   return useMutation({
     mutationFn: loginFn,
-    mutationKey: "login",
-    onSuccess: (data: any) => {
-      console.log(data)
-      setStorage("user", data);
-      navigate(navigationFn.COMMUNITY_COMMIT)
+    mutationKey: 'login',
+    onSuccess: (data) => {
+      setStorage('user', data)
+      navigate(navigationFn.ADMIN_DASHBOARD)
       toastSuccess({
         title: 'Login successfully'
       })

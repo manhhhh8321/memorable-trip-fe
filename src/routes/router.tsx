@@ -15,8 +15,4 @@ const PrivacyPocily = () => {
   console.log('privacy')
   return <div>ok</div>
 }
-export const router = createBrowserRouter([
-  // { ...authRoutes },
-  // { ...adminRoutes },
-  { ...publicRoutes},
-])
+export const router = createBrowserRouter([{ ...authRoutes }, { ...adminRoutes }, { ...publicRoutes }])
