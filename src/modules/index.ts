@@ -5,3 +5,5 @@ export * from './auth';
 export * from './blanks';
 
 export * from './home';
+
+export * from './communiti-commit';

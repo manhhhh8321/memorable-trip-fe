@@ -6,7 +6,7 @@ export const Text: ComponentStyleConfig = {
   baseStyle: {
     fontSize: "md",
     fontWeight: 500,
-    color: colors.grey[900],
+    color: colors.grey[1000],
   },
 
   variants: {

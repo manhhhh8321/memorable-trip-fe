@@ -15,6 +15,7 @@ const colors = {
   yellowLight: "#FAE2A6",
 
   grey: {
+    1000: "#000",
     900: "#424242",
     400: "#9B9997",
     300: "#D6D4D2",

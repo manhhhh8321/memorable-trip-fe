@@ -11,13 +11,15 @@ import { Header } from './components'
 export const DefaultLayout = () => {
   const { promiseInProgress } = usePromiseTracker()
   const [isCollapsed, setIsCollapsed] = useState(false)
-  
+
   return (
     <ScrollToTop>
-        <Box w={'100%'} minH='100vh' pos='relative' px={10} bgColor='white' transition='.3s ease-in-out'>
-          <Header />
-          {promiseInProgress && <LoadingOverlay />}
+      <Box w={'100%'} minH='100vh' pos='relative' bgColor='white' transition='.3s ease-in-out'>
+        <Header />
+        {promiseInProgress && <LoadingOverlay />}
+        <Box w={'100%'} minH='100vh' pos='relative' px={{ lg: 8, xl: 8, '2xl': 20 }}>
           <Outlet />
+        </Box>
       </Box>
     </ScrollToTop>
   )

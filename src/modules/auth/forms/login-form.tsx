@@ -1,83 +1,62 @@
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
-import {
-  VStack,
-  Text,
-  Box,
-  InputGroup,
-  InputRightElement,
-  Icon,
-  Link as ChakraLink,
-  Button,
-} from "@chakra-ui/react";
-import { EmailIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, Controller } from 'react-hook-form'
+import { VStack, Text, Box, InputGroup, InputRightElement, Icon, Link as ChakraLink, Button } from '@chakra-ui/react'
+import { EmailIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom'
 
-import { useMutationLogin } from "../api";
-import { LoginFormSchema } from "~/validations";
-import { CustomInput, CustomPasswordInput } from "~/components";
-import { navigationFn } from "~/routes";
-import colors from "~/libs/chakra/foundations/colors";
+import { useMutationLogin } from '../api'
+import { LoginFormSchema } from '~/validations'
+import { CustomInput, CustomPasswordInput } from '~/components'
+import { navigationFn } from '~/routes'
+import colors from '~/libs/chakra/foundations/colors'
 
 type TLogin = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 const initialValues = {
-  email: "",
-  password: "",
-} as TLogin;
+  email: '',
+  password: ''
+} as TLogin
 
 const LoginForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, errors, isValid },
+    formState: { isSubmitting, errors, isValid }
   } = useForm<TLogin>({
     defaultValues: initialValues,
-    resolver: zodResolver(LoginFormSchema),
-  });
+    resolver: zodResolver(LoginFormSchema)
+  })
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
-  const { mutate } = useMutationLogin();
-
-  const togglePassword = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const { mutate } = useMutationLogin()
 
   const onSubmit = (data: TLogin) => {
-    mutate(data);
-  };
+    mutate(data)
+  }
 
   console.log('first')
   return (
-    <VStack
-      as="form"
-      onSubmit={handleSubmit(onSubmit)}
-      w="min(100%, 700px)"
-      spacing={8}
-      p="60px 16px"
-      borderRadius={8}
-    >
-      <Text variant="headingLight">Sign in Admin Account</Text>
+    <VStack as='form' onSubmit={handleSubmit(onSubmit)} w='min(100%, 700px)' spacing={2}>
       <Controller
-        name="email"
+        name='email'
         control={control}
         render={({ field }) => (
-          <Box w="100%">
-            <Text variant="menuLabelLight" paddingBottom={4}>
-              Email{" "}
-              <Text as="span" color="white">
+          <Box w='100%'>
+            <Text variant='menuLabelLight' paddingBottom={4}>
+              Email{' '}
+              <Text as='span' color='white'>
                 *
               </Text>
             </Text>
             <InputGroup>
               <CustomInput
                 {...field}
-                placeholder="Enter your email"
+                placeholder='Enter your email'
                 pr={8}
                 isInvalid={!!errors.email}
                 minLength={8}
@@ -87,20 +66,18 @@ const LoginForm = () => {
                 <Icon as={EmailIcon} color={colors.primary} />
               </InputRightElement>
             </InputGroup>
-            {errors.email && (
-              <Text variant="error">{errors.email.message}</Text>
-            )}
+            {errors.email && <Text variant='error'>{errors.email.message}</Text>}
           </Box>
         )}
       />
       <Controller
-        name="password"
+        name='password'
         control={control}
         render={({ field }) => (
-          <Box w="100%">
-            <Text variant="menuLabelLight" paddingBottom={4}>
-              Password{" "}
-              <Text as="span" color="white">
+          <Box w='100%'>
+            <Text variant='menuLabelLight' paddingBottom={4}>
+              Password{' '}
+              <Text as='span' color='white'>
                 *
               </Text>
             </Text>
@@ -118,31 +95,20 @@ const LoginForm = () => {
               </InputRightElement>
             </InputGroup> */}
             <CustomPasswordInput {...field} />
-            {errors.password && (
-              <Text variant="error">{errors.password.message}</Text>
-            )}
+            {errors.password && <Text variant='error'>{errors.password.message}</Text>}
           </Box>
         )}
       />
-      <Box w="100%" textAlign="right">
-        <ChakraLink
-          as={Link}
-          to={navigationFn.FORGOT_PASSWORD}
-          variant="whiteUnderline"
-        >
+      <Box w='100%' textAlign='right'>
+        <ChakraLink as={Link} to={navigationFn.FORGOT_PASSWORD} variant='whiteUnderline'>
           Forgot your password?
         </ChakraLink>
       </Box>
-      <Button
-        type="submit"
-        isLoading={isSubmitting}
-        w="100%"
-        disabled={!isValid}
-      >
+      <Button type='submit' isLoading={isSubmitting} w='100%' disabled={!isValid}>
         Log in
       </Button>
     </VStack>
-  );
-};
+  )
+}
 
 export default LoginForm;
