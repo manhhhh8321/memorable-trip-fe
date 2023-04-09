@@ -18,8 +18,7 @@ export const useMutationLogout = () => {
     mutationFn: logoutFn,
     mutationKey: "logout",
     onSuccess: (data: any) => {
-      console.log(data)
-      clearStorage("accessToken");
+      clearStorage("user");
       toastSuccess({
         title: "Logout successfully",
       });

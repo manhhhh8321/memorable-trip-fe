@@ -17,12 +17,13 @@ type ApiResponse = {
 }
 export const HomePage = () => {
   const [pagination, setPagination] = useState({
-    _start: 1,
-    _limit: 10
+    page: 2,
+    limit: 20
   })
   // const [hasMore, setHasMore] = useState(true);
   const listRef = useRef<any>(null)
-  // const { data, error, isLoading, isFetching, fetchMore, canFetchMore } = useQueryListProduct(pagination)
+  const { data, error, isLoading, isFetching, fetchMore, canFetchMore } = useQueryListProduct(pagination)
+  console.log(data)
   const handleScroll = debounce(() => {
     // const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     // if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading && data && data?.pages?.length < pagination._limit) {
@@ -53,14 +54,12 @@ export const HomePage = () => {
     }
     // fetchMore()
 
-    console.log('first')
     setPagination({ ...pagination, _start: pagination._start + 1 })
   }, 500)
   // console.log(isFetchingMore)
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-    console.log(pagination)
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -91,27 +90,11 @@ export const HomePage = () => {
           </Box>
         ))}
       </Grid> */}
-      <div ref={listRef}>
-        {/* Render danh sách người dùng */}
-        {/* {data &&
-          Array(10)
-            .fill(0)
-            ?.map((val: any, i) => (
-              <Text key={i} p={10}>
-                Text
-              </Text>
-            ))} */}
-        {/* {data &&
-          data.pages
-            ?.map((page: any, i) =>
-            page?.data?.map((val:any)=><Text key={i} p={10}>
-                Text
-              </Text>)
-            )} */}
-
-        {/* Hiển thị thông báo khi đang fetch dữ liệu */}
-        {/* {isLoading && <div>Loading...</div>} */}
-      </div>
+      <Box>
+        <Grid templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)', '2xl': 'repeat(6, 1fr)' }} gap={{lg:8,xl:8,'2xl': 10}}>
+          {data && data?.data?.items?.map((val: any, i: number) => <CardItem key={i} data={val} />)}
+        </Grid>
+      </Box>
     </Box>
   )
 }

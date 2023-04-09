@@ -23,7 +23,7 @@ export const useMutationLogin = () => {
     mutationKey: "login",
     onSuccess: (data: any) => {
       console.log(data)
-      setStorage("accessToken", data?.accessToken);
+      setStorage("user", data);
       navigate(navigationFn.COMMUNITY_COMMIT)
       toastSuccess({
         title: "Login successfully",

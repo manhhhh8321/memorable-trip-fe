@@ -27,6 +27,7 @@ export const HeaderBottom = () => {
   const btnRef = React.useRef(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isAuth = getAccessToken()
+  console.log(isAuth)
   const { mutate } =useMutationLogout()
   const handleLogout = ()=>{
     mutate()
@@ -89,7 +90,7 @@ export const HeaderBottom = () => {
                   <MdAccountCircle size={35} color='#8d8c8c' />
                 </HStack>
               </MenuButton>
-              {isAuth ? (
+              {!!isAuth ? (
                 <MenuList>
                   <MenuGroup>
                     <MenuItem minH='40px'>

@@ -6,13 +6,13 @@ import axiosClient from '~/libs/axios/axiosClient'
 import { HttpResponse, PaginateData } from '~/models'
 
 const getListProductFn = (params?: Record<string, unknown>): Promise<any> =>
-  trackPromise(axiosClient.get('/posts', { params }))
+  trackPromise(axiosClient.get('/room', { params }))
 
 export const useQueryListProduct = (params?: Record<string, unknown>) => {
-  return useInfiniteQuery({
+  return useQuery({
     queryFn: () => getListProductFn(params),
     queryKey: ['list-product', params],
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    refetchOnWindowFocus: false
+    // getNextPageParam: (lastPage) => lastPage.nextPage,
+    // refetchOnWindowFocus: false
   })
 }

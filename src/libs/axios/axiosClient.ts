@@ -1,7 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
 
-// import { getAccessToken } from "./../../helper/local-storage";
+import { getAccessToken } from "./../../helper/local-storage";
 
 // const accessToken = getAccessToken();
 
@@ -20,7 +20,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config: any) => {
-  // config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
+  config.headers["Authorization"] = `Bearer ${getAccessToken()}`;
   config.paramsSerializer = function (params: any) {
     return queryString.stringify(params, { arrayFormat: "bracket" });
   };
