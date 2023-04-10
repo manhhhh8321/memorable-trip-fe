@@ -1,8 +1,8 @@
 import { As, HStack, Icon, Text, VStack } from '@chakra-ui/react'
-import React from 'react';
-import {MdCastle} from 'react-icons/md';
+import React from 'react'
+import { MdCastle } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
-import colors from '~/libs/chakra/foundations/colors';
+import colors from '~/libs/chakra/foundations/colors'
 
 type TItem = {
   label: string
@@ -23,8 +23,9 @@ export const NavItem = (props: TItem) => {
     >
       {({ isActive }) => (
         <VStack
-          bg={isActive ? colors.primary : 'white'}
-          color={isActive ? 'white' : colors.primary}
+          // bg={isActive ? colors.primary : 'white'}
+          color={isActive ? '#000' : '#424242'}
+          borderBottom={isActive ? '2px solid black' : 'none'}
           h={'100%'}
           alignItems={'center'}
           justifyContent={'center'}
@@ -33,11 +34,20 @@ export const NavItem = (props: TItem) => {
           // w="100%"
           transition='all 0.3s ease-in-out'
           _hover={{
-            bg: colors.primaryLight
+            color: '#000'
+            // bg: colors.primaryLight
           }}
         >
           {icon && <Icon w={'28px'} h={'28px'} as={icon} />}
-          <Text fontSize='sm' paddingRight={2} color={isActive ? 'white' : colors.grey[900]}>
+          <Text
+            _hover={{
+              color: '#000'
+              // bg: colors.primaryLight
+            }}
+            fontSize='sm'
+            paddingRight={2}
+            color={isActive ? '#000' : colors.grey[900]}
+          >
             {isCollapsed ? '' : label}
           </Text>
         </VStack>

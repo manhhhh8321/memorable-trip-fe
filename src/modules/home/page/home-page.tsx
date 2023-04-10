@@ -91,7 +91,10 @@ export const HomePage = () => {
         ))}
       </Grid> */}
       <Box>
-        <Grid templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(5, 1fr)', '2xl': 'repeat(6, 1fr)' }} gap={{lg:8,xl:8,'2xl': 10}}>
+        <Grid
+          templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(4, 1fr)', '2xl': 'repeat(6, 1fr)' }}
+          gap={{ xl: 6, '2xl': 10 }}
+        >
           {data && data?.data?.items?.map((val: any, i: number) => <CardItem key={i} data={val} />)}
         </Grid>
       </Box>

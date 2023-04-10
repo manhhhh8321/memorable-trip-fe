@@ -24,38 +24,38 @@ export type TNavigation = {
 
 const sidebarNavigations = [
   {
-    label: 'Admin Information',
+    label: 'Nhà nhỏ',
     to: navigationFn.HOME,
     icon: MdOutlineAdminPanelSettings
   },
   {
-    label: 'User Management',
-    to: navigationFn.HOME,
+    label: 'Thật ấn tượng!',
+    to: '/impress',
     icon: FiUsers
   },
   {
-    label: 'Baby Tracker Management',
-    to: navigationFn.HOME,
+    label: 'Nhà trên núi',
+    to: '/fsd',
     icon: FaBaby
   },
   {
-    label: 'Size Comparison',
-    to: navigationFn.HOME,
+    label: 'Bãi biển',
+    to: '/sfd',
     icon: FaBaby
   },
   {
-    label: 'Editorial Management',
-    to: navigationFn.HOME,
+    label: 'Được ưa chuộng',
+    to: '/fds',
     icon: MdOutlineArticle
   },
   {
-    label: 'Video Management',
-    to: navigationFn.HOME,
+    label: 'Khung cảnh tuyệt vời',
+    to: '/fsdf',
     icon: BiVideoRecording
   },
   {
-    label: 'Forum Management',
-    to: navigationFn.HOME,
+    label: 'Thuyền',
+    to: '/jhg',
     icon: MdOutlineForum
   },
   // {
