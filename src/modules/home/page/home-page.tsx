@@ -37,7 +37,7 @@ export const HomePage = () => {
       listRef.current &&
       window.innerHeight + window.scrollY > listRef.current.offsetTop + listRef.current.offsetHeight
     ) {
-      setPagination({ ...pagination, _start: pagination._start + 1 })
+      setPagination({ ...pagination, page: pagination.page + 1 })
       // listRef.current?.scrollIntoView()
       console.log(
         window.innerHeight + window.scrollY,
@@ -54,17 +54,17 @@ export const HomePage = () => {
     }
     // fetchMore()
 
-    setPagination({ ...pagination, _start: pagination._start + 1 })
+    setPagination({ ...pagination, page: pagination.page + 1 })
   }, 500)
   // console.log(isFetchingMore)
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [pagination])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [pagination])
   // const handleScroll = () => {
   //   if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
   //     fetchMore()
