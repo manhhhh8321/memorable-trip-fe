@@ -1,8 +1,9 @@
-import { RouteObject } from "react-router";
+import { RouteObject } from 'react-router'
 
-import { BlockedAuth } from "./blocked-auth";
-import { BlankPage, LoginPage } from "~/modules";
-import { AuthLayout } from "~/layouts";
+import { BlockedAuth } from './blocked-auth'
+import { BlankPage, LoginPage } from '~/modules'
+import { AuthLayout } from '~/layouts'
+import CreateRoomRoutes from './create-room-route'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -28,6 +29,7 @@ export const authRoutes: RouteObject = {
           element: <></>
         }
       ]
-    }
+    },
+    { ...CreateRoomRoutes }
   ]
 }

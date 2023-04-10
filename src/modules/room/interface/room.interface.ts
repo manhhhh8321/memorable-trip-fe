@@ -75,3 +75,26 @@ export enum PaymentType {
   CASH = 'CASH',
   CARD = 'CARD'
 }
+
+export interface RoomDto {
+  roomName: string
+  userId: number
+  price: number
+  numberOfLivingRoom: number
+  numberOfBedroom: number
+  numberOfBed: number
+  numberOfBathroom: number
+  roomType: string
+  about: string
+  description: string
+  city: string
+  amenities: string[]
+  image: string[]
+  address: string
+}
+
+export enum RoomType {
+  ROOM = 'ROOM',
+  ENTIRE_HOME = 'ENTIRE_HOME',
+  SHARED_ROOM = 'SHARED_ROOM'
+}

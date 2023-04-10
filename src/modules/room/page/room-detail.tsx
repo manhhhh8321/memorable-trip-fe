@@ -16,6 +16,7 @@ import { RiStore3Fill, RiHome3Line } from 'react-icons/ri'
 import { BsTree } from 'react-icons/bs'
 import BookCalendar from './calendar'
 import 'react-datepicker/dist/react-datepicker.css'
+import Footer from './footer'
 
 interface RoomDetailProps {
   roomId: number
@@ -80,6 +81,7 @@ export const RoomDetailPage: React.FC = () => {
     roomAmenities
   } = room
 
+  console.log(roomAmenities && roomAmenities.length > 0)
   return (
     <Flex flexDirection={'column'}>
       <Flex>
@@ -105,7 +107,7 @@ export const RoomDetailPage: React.FC = () => {
                 )}
               </Slider>
             </Box>
-            <Box>
+            <Box pl={'20'}>
               <Box mb={5}>
                 <Text fontSize='2xl' fontWeight='bold'>
                   {roomName}
@@ -160,41 +162,52 @@ export const RoomDetailPage: React.FC = () => {
                   <Text fontSize='lg' fontWeight='bold' mb={2}>
                     Amenities
                   </Text>
-                  <Wrap spacing={2}>
-                    {roomAmenities.map((amenity: RoomAmenity) => (
-                      <WrapItem key={amenity.amenitiesId}>
-                        <Tag size='sm' variant='subtle' colorScheme='teal'>
-                          {amenity.amenities.name}
-                        </Tag>
-                      </WrapItem>
-                    ))}
-                  </Wrap>
+                  {roomAmenities && roomAmenities.length > 0 ? (
+                    <Wrap spacing={2}>
+                      {roomAmenities.map((amenity: RoomAmenity) => (
+                        <WrapItem key={amenity.amenitiesId}>
+                          <Tag size='sm' variant='subtle' colorScheme='teal'>
+                            {amenity.amenities.name}
+                          </Tag>
+                        </WrapItem>
+                      ))}
+                    </Wrap>
+                  ) : (
+                    <Text>No amenities available.</Text>
+                  )}
                 </Box>
               </Box>
             </Box>
           </SimpleGrid>
-          <Box width='20%' ml={10}>
-            <Box mb={5}>
-              <BookCalendar roomId={id} pricePerNight={price} />
-            </Box>
-          </Box>
         </Flex>
       </Flex>
-      <Flex pt={10} mt={20}>
-        <Box>
+
+      <Flex flexDirection={'row'} mt={8}>
+        <Box pl={20} ml={16} width={'60%'}>
           <Text fontSize='3xl' color='gray.500' lineHeight='tall'>
             {description.name}, {city.name}, {address}
           </Text>
-          <Text mt={4} fontSize='lg' color='gray.500' lineHeight='tall'>
+          <Text mt={8} fontSize='lg' color='gray.500' lineHeight='tall'>
             Welcome to our lovely property located in the heart of {city.name}. Our goal is to provide you with a
             comfortable and memorable stay in one of the most vibrant cities in the world. Our property features{' '}
             {numberOfBedroom} bedrooms, {numberOfBathroom} bathrooms, and {numberOfBed} beds, making it perfect for
-            families or groups of friends. With amenities like {roomAmenities[0].amenities.name}, you'll have everything
-            you need to feel right at home. Book your stay with us today and experience the best that {city.name} has to
-            offer.
+            families or groups of friends.
+            {roomAmenities.length > 0 && (
+              <span>
+                With amenities like {roomAmenities.map((amenity) => amenity.amenities.name).join(', ')}, you'll have
+                everything you need to feel right at home.
+              </span>
+            )}
+            Book your stay with us today and experience the best that {city.name} has to offer.
           </Text>
         </Box>
+        <Box width='30%' ml={10}>
+          <Box mb={5} position='sticky' top={20}>
+            <BookCalendar roomId={id} pricePerNight={price} />
+          </Box>
+        </Box>
       </Flex>
+      <Footer />
     </Flex>
   )
 }

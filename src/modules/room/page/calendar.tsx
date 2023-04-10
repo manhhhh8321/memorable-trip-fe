@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, Card, Heading, Text } from '@chakra-ui/react'
 import { CreateBookingDto, PaymentType } from '../interface/room.interface'
 import RangePicker from 'react-datepicker'
 import '../css/book-calendar.css'
@@ -42,7 +42,7 @@ const BookCalendar: React.FC<BookCalendarProps> = ({ roomId, pricePerNight }) =>
   }
 
   return (
-    <Box>
+    <Card maxWidth='md' mx='auto' my={8} p={8} borderRadius='xl' boxShadow='xl' textAlign='center'>
       <Heading size='md' mb={4}>
         Select your dates
       </Heading>
@@ -52,27 +52,22 @@ const BookCalendar: React.FC<BookCalendarProps> = ({ roomId, pricePerNight }) =>
         )}
         {totalPrice && <Text>Total price: ${totalPrice}</Text>}
       </Box>
-      <Box>
-        <Box className='date-picker'>
-          <RangePicker
-            selected={checkIn}
-            onChange={handleDateSelect}
-            selectsRange={true}
-            startDate={checkIn}
-            endDate={checkOut}
-            minDate={new Date()}
-            dateFormat='MMMM d, yyyy'
-            className='react-datepicker'
-          />
-        </Box>
-
-        <Box>
-          <Button mt={8} disabled={!checkIn || !checkOut || !totalPrice} onClick={handleSubmit}>
-            Book now
-          </Button>
-        </Box>
+      <RangePicker
+        selected={checkIn}
+        onChange={handleDateSelect}
+        selectsRange={true}
+        startDate={checkIn}
+        endDate={checkOut}
+        minDate={new Date()}
+        dateFormat='MMMM d, yyyy'
+        placeholderText='Select dates here'
+      />
+      <Box mt={4}>
+        <Button disabled={!checkIn || !checkOut || !totalPrice} onClick={handleSubmit}>
+          Book now
+        </Button>
       </Box>
-    </Box>
+    </Card>
   )
 }
 
