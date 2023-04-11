@@ -38,13 +38,14 @@ export const NavItem = (props: TItem) => {
             // bg: colors.primaryLight
           }}
         >
-          {icon && <Icon w={'28px'} h={'28px'} as={icon} />}
+          {icon && <Icon w={{ xl: '24px', '2xl': '28px' }} h={{ xl: '24px', '2xl': '28px' }} as={icon} />}
           <Text
             _hover={{
               color: '#000'
               // bg: colors.primaryLight
             }}
-            fontSize='sm'
+            fontSize='xs'
+            whiteSpace='nowrap'
             paddingRight={2}
             color={isActive ? '#000' : colors.grey[900]}
           >
