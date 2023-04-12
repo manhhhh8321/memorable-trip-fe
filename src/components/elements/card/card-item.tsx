@@ -50,7 +50,7 @@ export const CardItem = ({ data }: any) => {
     <Box w={'100%'} cursor='pointer'>
       <Box w={'100%'} minH={'300'}>
         <VStack>
-          <Box position={'relative'}>
+          <Box position={'relative'} w={'100%'}>
             <Image
               borderRadius={15}
               src={data?.image[0]?.image_url || fakeImages[Math.floor(Math.random() * fakeImages.length)]}
