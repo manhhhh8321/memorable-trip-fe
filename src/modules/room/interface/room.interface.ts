@@ -78,12 +78,11 @@ export enum PaymentType {
 
 export interface RoomDto {
   roomName: string
-  userId: number
   price: number
-  numberOfLivingRoom: number
-  numberOfBedroom: number
-  numberOfBed: number
-  numberOfBathroom: number
+  numberOfLivingRoom: string
+  numberOfBedroom: string
+  numberOfBed: string
+  numberOfBathroom: string
   roomType: string
   about: string
   description: string
@@ -93,8 +92,91 @@ export interface RoomDto {
   address: string
 }
 
+export const AMENITIES = [
+  'Bathroom',
+  'Baby carriage',
+  'Wheel chair',
+  'TV',
+  'Smoking ban',
+  'Wifi',
+  'Swimming pool',
+  'Parking lot',
+  'Air conditioner',
+  'Bedroom',
+  'Beach',
+  'Buzzer/wireless intercom',
+  'Horsefire',
+  'Bicyle'
+] as const;
+
+export const DESCRIPTION = [
+  'House',
+  'Apartment',
+  'Villa',
+  'Condo',
+  'Townhouse',
+  'Cabin',
+  'Bungalow',
+  'Loft',
+  'Studio',
+  'Treehouse',
+  'Boat'
+]
+
+export const VALID_PROVINCES_CODE = [
+  'Lai Chau',
+  'Lao Cai',
+  'Ha Giang',
+  'Cao Bang',
+  'Son La',
+  'Yen Bai',
+  'Tuyen Quang',
+  'Lang Son',
+  'Quang Ninh',
+  'Hoa Binh',
+  'Ninh Binh',
+  'Thanh Hoa',
+  'Nghe An',
+  'Ha Tinh',
+  'Quang Binh',
+  'Quang Tri',
+  'Thua Thien Hue',
+  'Da Nang',
+  'Quang Nam',
+  'Quang Ngai',
+  'Binh Dinh',
+  'Phu Yen',
+  'Khanh Hoa',
+  'Ninh Thuan',
+  'Binh Thuan',
+  'Kon Tum',
+  'Gia Lai',
+  'Dak Lak',
+  'Lam Dong',
+  'Binh Phuoc',
+  'Tay Ninh',
+  'Binh Duong',
+  'Dong Nai',
+  'Ba Ria',
+  'HCMC',
+  'Long An',
+  'Tien Giang',
+  'Ben Tre',
+  'Can Tho',
+  'Vinh Long',
+  'Dong Thap',
+  'An Giang',
+  'Kien Giang',
+  'Ca Mau',
+  'Bac Lieu',
+  'Soc Trang',
+  'Tra Vinh'
+] as const;
+
 export enum RoomType {
   ROOM = 'ROOM',
   ENTIRE_HOME = 'ENTIRE_HOME',
   SHARED_ROOM = 'SHARED_ROOM'
 }
+
+export const NUMBER_VALUES = ['1', '2', '3', '4', '5+']
