@@ -5,10 +5,11 @@ import colors from "../foundations/colors";
 export const Link: ComponentStyleConfig = {
   baseStyle: {
     color: colors.primary,
-    fontWeight: 600,
-    _hover: {
-      color: colors.primaryLight,
-    },
+    fontWeight: 400,
+    fontSize: 14,
+    // _hover: {
+    //   color: colors.primaryLight,
+    // },
   },
 
   variants: {

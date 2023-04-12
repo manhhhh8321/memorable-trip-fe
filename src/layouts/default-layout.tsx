@@ -6,7 +6,7 @@ import { usePromiseTracker } from 'react-promise-tracker'
 import { ScrollToTop } from '~/hoc'
 import { SIDEBAR_COLLAPSED_WIDTH, SIDEBAR_WIDTH } from '~/configs'
 import { LoadingOverlay, NavMenu } from '~/components'
-import { Header } from './components'
+import { Footer, Header } from './components'
 
 export const DefaultLayout = () => {
   const { promiseInProgress } = usePromiseTracker()
@@ -22,6 +22,7 @@ export const DefaultLayout = () => {
         <Box w={'100%'} minH='100vh' pos='relative' px={{ lg: 8, xl: 8, '2xl': 20 }}>
           <Outlet />
         </Box>
+        <Footer />
       </Box>
     </ScrollToTop>
   )
