@@ -69,3 +69,42 @@
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+.list-category {
+  display: flex;
+  margin-top: 3.2rem;
+  position: relative;
+  width: 100%;
+  /* height: 20rem; */
+}
+.pagination-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  width: 2rem;
+  height: 2rem;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.next-btn {
+  right: 1rem;
+    /* right: -2rem; */
+
+  /* @media (min-width: 375px) and (max-width: 640px) and (orientation: portrait) {
+    right: 0rem;
+  } */
+}
+
+.prev-btn {
+  /* left: -2rem; */
+    left: 1rem;
+
+  /* @media (min-width: 375px) and (max-width: 640px) and (orientation: portrait) {
+    left: 0rem;
+  } */
+}
