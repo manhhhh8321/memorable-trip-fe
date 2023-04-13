@@ -39,22 +39,22 @@ type TAutForm = {
   onOpen?: () => void
   onClose: any
   isOpen: boolean
+  selectedIndex?: number
+  setSelectedIndex?: any
 }
 type TButtonAuth = {
+  hidden?: boolean
   title: string
   icon: React.ReactNode | JSX.Element
   onClick?: (event?: any) => void
 }
 export const AuthForm = (props: TAutForm) => {
-  const { isOpen, onClose } = props
+  const { isOpen, onClose,selectedIndex,  setSelectedIndex } = props
+  // const [selectedIndex, setSelectedIndex] = useState<number>(1)
   const isAuth = getAccessToken()
   useEffect(() => {
     !!isAuth && onClose()
   }, [isAuth])
-
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-  const [scrollBehavior, setScrollBehavior] = useState('inside')
-  const [showPassword, setShowPassword] = useState(false)
 
   const btnRef = useRef(null)
 
@@ -67,7 +67,7 @@ export const AuthForm = (props: TAutForm) => {
         <ModalBody pt={10} pb={10}>
           <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
           <LoginForm />
-          <RegisterForm />
+          {/* <RegisterForm /> */}
           <HStack>
             <Text w={'50%'} h={'1px'} bg={'#ccc'} />
             <Text py={3} textAlign={'center'}>
@@ -76,10 +76,11 @@ export const AuthForm = (props: TAutForm) => {
             <Text w={'50%'} h={'1px'} bg={'#ccc'} />
           </HStack>
           <VStack w={'100%'}>
-            <ButtonAuth title='Tiếp tục với Facebook' icon={<Icons.facebook />} />
-            <ButtonAuth title='Tiếp tục với Google' icon={<Icons.google />} />
-            <ButtonAuth title='Tiếp tục với Apple' icon={<Icons.apple />} />
-            <ButtonAuth title='Tiếp tục với điện thoại' icon={<Icons.phone />} />
+            <ButtonAuth hidden={selectedIndex === 3} onClick={()=>setSelectedIndex(3)} title='Tiếp tục với Facebook' icon={<Icons.facebook />} />
+            <ButtonAuth hidden={selectedIndex === 4} onClick={()=>setSelectedIndex(4)} title='Tiếp tục với Google' icon={<Icons.google />} />
+            <ButtonAuth hidden={selectedIndex === 5} onClick={()=>setSelectedIndex(5)} title='Tiếp tục với Apple' icon={<Icons.apple />} />
+            <ButtonAuth hidden={selectedIndex === 2} onClick={()=>setSelectedIndex(2)} title='Tiếp tục với điện thoại' icon={<Icons.phone />} />
+            <ButtonAuth hidden={selectedIndex === 1} onClick={()=>setSelectedIndex(1)} title='Tiếp tục với email' icon={<Icons.phone />} />
           </VStack>
         </ModalBody>
       </ModalContent>
@@ -88,9 +89,10 @@ export const AuthForm = (props: TAutForm) => {
 }
 
 const ButtonAuth = (props: TButtonAuth) => {
-  const { title, icon, onClick } = props
+  const { title, icon, hidden, onClick } = props
   return (
     <HStack
+      hidden={hidden}
       pos={'relative'}
       w={'100%'}
       bg={'white'}
