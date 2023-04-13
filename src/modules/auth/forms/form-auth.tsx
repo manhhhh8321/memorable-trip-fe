@@ -18,7 +18,8 @@ import {
   ModalContent,
   useDisclosure,
   Image,
-  ModalHeader
+  ModalHeader,
+  As
 } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
@@ -30,18 +31,25 @@ import { navigationFn } from '~/routes'
 import colors from '~/libs/chakra/foundations/colors'
 import LoginForm from './login-form'
 import { getAccessToken } from '~/helper'
+import { MdFacebook } from 'react-icons/md'
+import { Icons } from '~/assets'
 
 type TAutForm = {
   onOpen?: () => void
   onClose: any
   isOpen: boolean
 }
+type TButtonAuth = {
+  title: string
+  icon: React.ReactNode | JSX.Element
+  onClick?: (event?: any) => void
+}
 export const AuthForm = (props: TAutForm) => {
   const { isOpen, onClose } = props
-  const isAuth = getAccessToken();
-  useEffect(()=>{
-    !!isAuth && onClose();
-  },[isAuth])
+  const isAuth = getAccessToken()
+  useEffect(() => {
+    !!isAuth && onClose()
+  }, [isAuth])
 
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [scrollBehavior, setScrollBehavior] = useState('inside')
@@ -58,8 +66,45 @@ export const AuthForm = (props: TAutForm) => {
         <ModalBody pt={10} pb={10}>
           <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
           <LoginForm />
+          <HStack>
+            <Text w={'50%'} h={'1px'} bg={'#ccc'} />
+            <Text py={3} textAlign={'center'}>
+              Hoặc
+            </Text>
+            <Text w={'50%'} h={'1px'} bg={'#ccc'} />
+          </HStack>
+          <VStack w={'100%'}>
+            <ButtonAuth title='Tiếp tục với Facebook' icon={<Icons.facebook />} />
+            <ButtonAuth title='Tiếp tục với Google' icon={<Icons.google />} />
+            <ButtonAuth title='Tiếp tục với Apple' icon={<Icons.apple />} />
+            <ButtonAuth title='Tiếp tục với điện thoại' icon={<Icons.phone />} />
+          </VStack>
         </ModalBody>
       </ModalContent>
     </Modal>
+  )
+}
+
+const ButtonAuth = (props: TButtonAuth) => {
+  const { title, icon, onClick } = props
+  return (
+    <HStack
+      pos={'relative'}
+      w={'100%'}
+      bg={'white'}
+      _hover={{ bg: 'rgba(246, 241, 241, 0.6)' }}
+      _active={{ bg: 'white' }}
+      p={2}
+      alignItems={'center'}
+      justifyContent={'center'}
+      border={'1px solid #222222'}
+      borderRadius={6}
+      cursor={'pointer'}
+      onClick={onClick}
+    >
+      {/* <Icon pos='absolute' left={4} color={'facebook.600'} w={30} h={30} /> */}
+      <Text pos='absolute' left={4} color={'facebook.600'}>{icon}</Text>
+      <Text>{title}</Text>
+    </HStack>
   )
 }
