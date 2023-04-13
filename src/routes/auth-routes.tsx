@@ -1,8 +1,9 @@
-import { RouteObject } from "react-router";
+import { RouteObject } from 'react-router'
 
-import { BlockedAuth } from "./blocked-auth";
-import { BlankPage, LoginPage } from "~/modules";
-import { AuthLayout } from "~/layouts";
+import { BlockedAuth } from './blocked-auth'
+import { BlankPage, LoginPage } from '~/modules'
+import { AuthLayout } from '~/layouts'
+import CreateRoomRoutes from './create-room-route'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -11,23 +12,24 @@ export const authRoutes: RouteObject = {
     {
       element: <AuthLayout />,
       children: [
-        // {
-        //   path: '/login',
-        //   element: <LoginPage />
-        // },
-        // {
-        //   path: '/forgot-password',
-        //   element: <></>
-        // },
-        // {
-        //   path: '/reset-password',
-        //   element: <></>
-        // },
-        // {
-        //   path: 'verify-code',
-        //   element: <></>
-        // }
+        {
+          path: '/login',
+          element: <LoginPage />
+        },
+        {
+          path: '/forgot-password',
+          element: <></>
+        },
+        {
+          path: '/reset-password',
+          element: <></>
+        },
+        {
+          path: 'verify-code',
+          element: <></>
+        }
       ]
-    }
+    },
+    { ...CreateRoomRoutes }
   ]
 }

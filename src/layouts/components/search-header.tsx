@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {
   Box,
   HStack,
+  Link,
   Menu,
   MenuButton,
   MenuDivider,
@@ -21,18 +22,27 @@ import { MdLanguage, MdMenu, MdAccountCircle } from 'react-icons/md'
 import { AuthForm } from '~/modules/auth/forms'
 import { clearStorage, getAccessToken } from '~/helper'
 import { useMutationLogout } from '~/modules/auth/api'
-
+import { useNavigate } from 'react-router'
 export const HeaderBottom = () => {
+  const navigate = useNavigate()
   // const [isOpen, setIsOpen] = useState(false)
   const btnRef = React.useRef(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isAuth = getAccessToken()
   console.log(isAuth)
-  const { mutate } =useMutationLogout()
-  const handleLogout = ()=>{
+  const { mutate } = useMutationLogout()
+  const handleLogout = () => {
     mutate()
     // clearStorage('accessToken');
     // window.location.reload();
+  }
+
+  const handleProfile = () => {
+    navigate('/user')
+  }
+
+  const handleCreateRoom = () => {
+    navigate('/room')
   }
   return (
     <VStack w={'100%'} mt={'0px !important'}>
@@ -79,7 +89,7 @@ export const HeaderBottom = () => {
         </Popover>
         <Box>
           <HStack spacing={3}>
-            <Text>Cho thuê chỗ ở qua Airbnb</Text>
+            <Link href='/room' onClick={handleCreateRoom}>Cho thuê chỗ ở qua Airbnb</Link>
             <Text>
               <MdLanguage size={24} />
             </Text>
@@ -109,7 +119,7 @@ export const HeaderBottom = () => {
                   <MenuDivider />
                   <MenuGroup>
                     <MenuItem minH='40px'>
-                      <Text>Tài Khoản</Text>
+                      <Text onClick={handleProfile}>Tài Khoản</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
                       <Text>Cho thuê chỗ ở qua Airbnb</Text>

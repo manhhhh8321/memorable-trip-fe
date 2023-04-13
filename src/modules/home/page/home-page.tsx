@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Text, calc } from '@chakra-ui/react'
+import { Box, Grid, Link, Stack, Text, calc } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { CardItem } from '~/components'
 import { listProducts } from '~/mocks'
