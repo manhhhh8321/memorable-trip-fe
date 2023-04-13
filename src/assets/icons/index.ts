@@ -6,7 +6,7 @@ import { textSecondaryLogo } from "./text-secondary-logo";
 import { usersIcon } from "./users";
 import { heart } from "./heart-icon";
 import { star } from "./base-icon";
-import { chevronLeft } from './arrow-icon';
+import { chevronLeft, left, right } from './arrow-icon';
 
 export interface IIconProps {
   w?: number | string
@@ -27,4 +27,6 @@ export const Icons = {
   heart,
   star,
   chevronLeft,
+  left,
+  right,
 };

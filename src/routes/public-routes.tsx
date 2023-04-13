@@ -20,6 +20,11 @@ export const publicRoutes: RouteObject = {
       element: <HomePage/>
       // element: <Navigate to={navigationFn.HOME} replace />
     },
+    {
+      path: '/impress',
+      element: <HomePage/>
+      // element: <Navigate to={navigationFn.HOME} replace />
+    },
     {...communityRoutes},
   ]
 }
