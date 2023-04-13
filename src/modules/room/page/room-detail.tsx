@@ -192,9 +192,9 @@ export const RoomDetailPage: React.FC = () => {
             comfortable and memorable stay in one of the most vibrant cities in the world. Our property features{' '}
             {numberOfBedroom} bedrooms, {numberOfBathroom} bathrooms, and {numberOfBed} beds, making it perfect for
             families or groups of friends.
-            {roomAmenities.length > 0 && (
+            {roomAmenities?.length > 0 && (
               <span>
-                With amenities like {roomAmenities.map((amenity) => amenity.amenities.name).join(', ')}, you'll have
+                With amenities like {roomAmenities?.map((amenity) => amenity.amenities.name)?.join(', ')}, you'll have
                 everything you need to feel right at home.
               </span>
             )}

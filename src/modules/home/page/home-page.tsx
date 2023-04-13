@@ -1,10 +1,11 @@
-import { Box, Grid, Link, Stack, Text, calc } from '@chakra-ui/react'
+import { Box, Grid, Stack, Text, calc } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { CardItem } from '~/components'
 import { listProducts } from '~/mocks'
 import { useQueryListProduct } from '../api'
 import { UseInfiniteQueryResult } from 'react-query'
 import { debounce } from 'lodash'
+import { Link } from 'react-router-dom'
 type User = {
   id: number
   name: string
@@ -95,7 +96,12 @@ export const HomePage = () => {
           templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(4, 1fr)', '2xl': 'repeat(6, 1fr)' }}
           gap={{ xl: 6, '2xl': 10 }}
         >
-          {data && data?.data?.items?.map((val: any, i: number) => <CardItem key={i} data={val} />)}
+          {data &&
+            data?.data?.items?.map((val: any, i: number) => (
+              <Link key={i} to={`/room/${val?.id}`}>
+                <CardItem key={i} data={val} />
+              </Link>
+            ))}
         </Grid>
       </Box>
     </Box>
