@@ -136,7 +136,7 @@ export const HeaderBottom = () => {
                   </MenuGroup>
                 </MenuList>
               ) : (
-                <MenuList>
+                <MenuList zIndex={10}>
                   <MenuGroup>
                     <MenuItem onClick={onOpen} minH='48px'>
                       <Text>Đăng nhập</Text>
