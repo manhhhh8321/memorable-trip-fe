@@ -33,6 +33,7 @@ import LoginForm from './login-form'
 import { getAccessToken } from '~/helper'
 import { MdFacebook } from 'react-icons/md'
 import { Icons } from '~/assets'
+import { RegisterForm } from './register-form'
 
 type TAutForm = {
   onOpen?: () => void
@@ -66,6 +67,7 @@ export const AuthForm = (props: TAutForm) => {
         <ModalBody pt={10} pb={10}>
           <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
           <LoginForm />
+          <RegisterForm />
           <HStack>
             <Text w={'50%'} h={'1px'} bg={'#ccc'} />
             <Text py={3} textAlign={'center'}>

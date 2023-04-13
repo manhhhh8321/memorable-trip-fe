@@ -89,7 +89,9 @@ export const HeaderBottom = () => {
         </Popover>
         <Box>
           <HStack spacing={3}>
-            <Link href='/room' onClick={handleCreateRoom}>Cho thuê chỗ ở qua Airbnb</Link>
+            <Link href='/room' onClick={handleCreateRoom}>
+              Cho thuê chỗ ở qua Airbnb
+            </Link>
             <Text>
               <MdLanguage size={24} />
             </Text>
@@ -101,7 +103,7 @@ export const HeaderBottom = () => {
                 </HStack>
               </MenuButton>
               {!!isAuth ? (
-                <MenuList>
+                <MenuList zIndex={10}>
                   <MenuGroup>
                     <MenuItem minH='40px'>
                       <Text>Tin nhắn</Text>
