@@ -13,7 +13,12 @@ export const createRoom = (roomData: any) => {
 }
 
 export const uploadImage = (imageData: any) => {
-  const data = axiosClient.post('/files/upload', imageData)
+  const data = axiosClient.post('/files/upload', imageData, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
 
   return data
 }

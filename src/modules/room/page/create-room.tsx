@@ -15,6 +15,7 @@ import {
   FormErrorMessage,
   CheckboxGroup,
   HStack,
+  Text,
   Stack
 } from '@chakra-ui/react'
 import { AMENITIES, RoomDto, VALID_PROVINCES_CODE } from '../interface/room.interface'
@@ -22,15 +23,13 @@ import { BsPlusCircle } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import roomSchema from '../resolver/room.resolver'
-import { FaCheckSquare } from 'react-icons/fa'
 import ImageInput from './image-input'
-
-const onSubmit = (roomDto: RoomDto) => { }
-
-
+import { uploadImage } from '../api/room.api'
 
 const CreateRoomForm = () => {
   const [submitting, setSubmitting] = useState(false)
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string[] | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -40,13 +39,22 @@ const CreateRoomForm = () => {
   } = useForm<RoomDto>({
     resolver: zodResolver(roomSchema)
   })
+  console.log(errors)
+  console.log(uploadedImageUrl)
 
   const onSubmit = async (data: RoomDto) => {
-    setSubmitting(true)
-    // perform submission logic here
+    try {
+      setSubmitting(true)
+      const imageUrl = await uploadImage(uploadedImageUrl)
+      const roomData = { ...data, imageUrl }
+      // perform submission logic here, e.g. make an API call to submit the form data
+      console.log('Submitted room data:', roomData)
+    } catch (error) {
+      console.error('Error submitting room data:', error)
+    } finally {
+      setSubmitting(false)
+    }
   }
-
-
   return (
     <Box display={'flex'} maxW='6xl' mt={16} ml={400}>
       <Box
@@ -86,22 +94,22 @@ const CreateRoomForm = () => {
               </FormControl>
               <FormControl isRequired isInvalid={!!errors.numberOfLivingRoom}>
                 <FormLabel htmlFor='numberOfLivingRoom'>Number of Living Rooms</FormLabel>
-                <Input {...register('numberOfLivingRoom')} type='number' />
+                <Input {...register('numberOfLivingRoom')} type='string' />
                 <FormErrorMessage>{errors.numberOfLivingRoom?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired isInvalid={!!errors.numberOfBedroom}>
                 <FormLabel htmlFor='numberOfBedroom'>Number of Bedrooms</FormLabel>
-                <Input {...register('numberOfBedroom')} type='number' />
+                <Input {...register('numberOfBedroom')} type='string' />
                 <FormErrorMessage>{errors.numberOfBedroom?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired isInvalid={!!errors.numberOfBed}>
                 <FormLabel htmlFor='numberOfBed'>Number of Beds</FormLabel>
-                <Input {...register('numberOfBed')} type='number' />
+                <Input {...register('numberOfBed')} type='string' />
                 <FormErrorMessage>{errors.numberOfBed?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired isInvalid={!!errors.numberOfBathroom}>
                 <FormLabel htmlFor='numberOfBathroom'>Number of Bathrooms</FormLabel>
-                <Input {...register('numberOfBathroom')} type='number' />
+                <Input {...register('numberOfBathroom')} type='string' />
                 <FormErrorMessage>{errors.numberOfBathroom?.message}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired isInvalid={!!errors.roomType}>
@@ -133,7 +141,7 @@ const CreateRoomForm = () => {
                 </Select>
                 <FormErrorMessage>{errors.city?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl isRequired isInvalid={!!errors.amenities}>
+              <FormControl isInvalid={!!errors.amenities}>
                 <FormLabel htmlFor='amenities'>Amenities</FormLabel>
                 <CheckboxGroup
                   colorScheme='green'
@@ -150,17 +158,20 @@ const CreateRoomForm = () => {
                 </CheckboxGroup>
                 <FormErrorMessage>{errors.amenities?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl id='images' isInvalid={!!errors.image}>
-                <ImageInput name="images" label="Room Images" isRequired />
-                <FormErrorMessage>{errors.image?.message}</FormErrorMessage>
-              </FormControl>
+              <Box border={'1px'} borderStyle={'dashed'} width={'100%'}>
+                <VStack spacing={4}>
+                  <Flex alignItems='center'>
+                    <ImageInput onImageUploaded={setUploadedImageUrl} {...register('image')} />
+                  </Flex>
+                </VStack>
+              </Box>
               <FormControl isRequired isInvalid={!!errors.address}>
                 <FormLabel htmlFor='address'>Address</FormLabel>
                 <Textarea {...register('address')} />
                 <FormErrorMessage>{errors.address?.message}</FormErrorMessage>
               </FormControl>
             </VStack>
-            <Button mt={10} type={'submit'}>
+            <Button mt={10} type='submit' isLoading={submitting}>
               Submit
             </Button>
           </form>

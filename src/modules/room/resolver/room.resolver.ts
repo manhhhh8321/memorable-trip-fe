@@ -3,7 +3,7 @@ import z from 'zod'
 
 const roomSchema = z.object({
   roomName: z.string(),
-  price: z.number(),
+  price: z.string(),
   numberOfLivingRoom: z.enum(['1', '2', '3', '4', '5+']),
   numberOfBedroom: z.enum(['1', '2', '3', '4', '5+']),
   numberOfBed: z.enum(['1', '2', '3', '4', '5+']),

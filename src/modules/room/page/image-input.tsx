@@ -1,94 +1,76 @@
-import { useState } from 'react';
-import {
-    Box,
-    Flex,
-    Text,
-    VStack,
-    HStack,
-    Icon,
-    Button,
-    useColorModeValue,
-} from '@chakra-ui/react';
-import { AiOutlineUpload } from 'react-icons/ai';
-import { uploadImage } from '../api/room.api';
+import { useState } from 'react'
+import { Box, Image, Button, CircularProgress } from '@chakra-ui/react'
+import { uploadImage } from '../api/room.api'
 
-interface DropZoneProps {
-    onDrop: (files: File[]) => void;
+interface Props {
+  onImageUploaded: (urls: string[] | null) => void
 }
 
-const ImageInput: React.FC<DropZoneProps> = ({ onDrop }) => {
-    const [isDragging, setIsDragging] = useState(false);
+const UploadImage = ({ onImageUploaded }: Props) => {
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null)
+  const [previewImages, setPreviewImages] = useState<string[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
-    const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        setIsDragging(true);
-    };
+  const handleFileInputChange = (e: any) => {
+    setSelectedFiles(e.target.files)
+    const images = []
+    for (let i = 0; i < e.target.files.length; i++) {
+      images.push(URL.createObjectURL(e.target.files[i]))
+    }
+    if (images.length > 0) {
+      setPreviewImages(images)
+      onImageUploaded(images) // Pass an array of image URLs to the parent component
+    }
+  }
 
-    const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        setIsDragging(false);
-    };
+  const handleSubmit = async () => {
+    if (!selectedFiles) {
+      console.log('No file selected')
+      return
+    }
+    setLoading(true)
+    const formData = new FormData()
+    for (let i = 0; i < selectedFiles.length; i++) {
+      formData.append('files', selectedFiles[i])
+    }
+    try {
+      const response = await uploadImage(formData)
+      const data = response.data
+      const urls = data.map((image: any) => image.url)
+      onImageUploaded(urls) // Pass the uploaded image URLs to the parent component
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-    };
-
-    const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        setIsDragging(false);
-
-        if (e.dataTransfer.files.length > 0) {
-            const files = Array.from(e.dataTransfer.files).filter((file) => file.type.startsWith('image/'));
-            const formData = new FormData();
-            files.forEach((file) => {
-                formData.append('images', file);
-            });
-
-            try {
-                const response = await uploadImage(formData)
-
-                if (response.status === 200) {
-                    const data = await response.data;
-                    onDrop(data);
-                } else {
-                    throw new Error('Failed to upload images');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    };
-
-    const borderColor = useColorModeValue('gray.200', 'gray.700');
-    const backgroundColor = useColorModeValue('gray.50', 'gray.800');
-    const textColor = useColorModeValue('gray.500', 'gray.400');
-
-    return (
-        <Box
-            border={`2px dashed ${borderColor}`}
-            borderRadius='lg'
-            p={8}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            bg={isDragging ? 'gray.100' : backgroundColor}
-        >
-            <VStack spacing={4} alignItems='center'>
-                <Icon as={AiOutlineUpload} boxSize={12} color={textColor} />
-                <Text color={textColor}>Drag and drop your image here or click to browse</Text>
-                <Text fontSize='sm' color={textColor}>
-                    (Only .jpg and .png files are supported)
-                </Text>
-                <HStack>
-                    <Button size='sm'>Browse</Button>
-                    <Text fontSize='sm' color={textColor}>
-                        to choose a file
-                    </Text>
-                </HStack>
-            </VStack>
+  return (
+    <Box>
+      {previewImages.length > 0 ? (
+        <Box display='flex' flexWrap='wrap' justifyContent='center'>
+          {previewImages.map((imageUrl, index) => (
+            <Box key={index} mx={2} my={2}>
+              <Image src={imageUrl} alt={`Preview Image ${index}`} boxSize='200px' />
+            </Box>
+          ))}
         </Box>
-    );
-};
+      ) : (
+        <Box h='200px' w='200px' borderWidth='1px' borderStyle='dashed' textAlign='center'>
+          <input type='file' onChange={handleFileInputChange} multiple />
+          <p>Drag and drop or click to select images</p>
+        </Box>
+      )}
+      <Button mt={4} colorScheme='blue' onClick={handleSubmit}>
+        Upload Images
+      </Button>
+      {loading && (
+        <Box textAlign='center' mt={4}>
+          <CircularProgress isIndeterminate color='blue.500' />
+        </Box>
+      )}
+    </Box>
+  )
+}
 
-export default ImageInput;
+export default UploadImage
