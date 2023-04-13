@@ -1,0 +1,173 @@
+import { useState } from 'react'
+import {
+  Box,
+  Heading,
+  VStack,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Select,
+  Checkbox,
+  Button,
+  Flex,
+  Icon,
+  FormErrorMessage,
+  CheckboxGroup,
+  HStack,
+  Stack
+} from '@chakra-ui/react'
+import { AMENITIES, RoomDto, VALID_PROVINCES_CODE } from '../interface/room.interface'
+import { BsPlusCircle } from 'react-icons/bs'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import roomSchema from '../resolver/room.resolver'
+import { FaCheckSquare } from 'react-icons/fa'
+import ImageInput from './image-input'
+
+const onSubmit = (roomDto: RoomDto) => { }
+
+
+
+const CreateRoomForm = () => {
+  const [submitting, setSubmitting] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors }
+  } = useForm<RoomDto>({
+    resolver: zodResolver(roomSchema)
+  })
+
+  const onSubmit = async (data: RoomDto) => {
+    setSubmitting(true)
+    // perform submission logic here
+  }
+
+
+  return (
+    <Box display={'flex'} maxW='6xl' mt={16} ml={400}>
+      <Box
+        width={'100%'}
+        maxW='4xl'
+        mx='auto'
+        borderWidth='1px'
+        borderRadius='lg'
+        overflow='hidden'
+        boxShadow='md'
+        bg='gray.50'
+        p={6}
+      >
+        <Box textAlign={'center'}>
+          <Flex justifyContent={'center'}>
+            <Box mr={4}>
+              <Icon as={BsPlusCircle} boxSize={8} color='teal.500' />
+            </Box>
+            <Heading as='h3' size='lg' fontWeight='bold'>
+              Setup a new room!
+            </Heading>
+          </Flex>
+        </Box>
+
+        <Box>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <VStack spacing={4}>
+              <FormControl id='roomName' isInvalid={!!errors.roomName}>
+                <FormLabel htmlFor='roomName'>Room Name</FormLabel>
+                <Input {...register('roomName')} />
+                <FormErrorMessage>{errors.roomName?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id='price' isInvalid={!!errors.price}>
+                <FormLabel htmlFor='price'>Price</FormLabel>
+                <Input {...register('price')} />
+                <FormErrorMessage>{errors.price?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.numberOfLivingRoom}>
+                <FormLabel htmlFor='numberOfLivingRoom'>Number of Living Rooms</FormLabel>
+                <Input {...register('numberOfLivingRoom')} type='number' />
+                <FormErrorMessage>{errors.numberOfLivingRoom?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.numberOfBedroom}>
+                <FormLabel htmlFor='numberOfBedroom'>Number of Bedrooms</FormLabel>
+                <Input {...register('numberOfBedroom')} type='number' />
+                <FormErrorMessage>{errors.numberOfBedroom?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.numberOfBed}>
+                <FormLabel htmlFor='numberOfBed'>Number of Beds</FormLabel>
+                <Input {...register('numberOfBed')} type='number' />
+                <FormErrorMessage>{errors.numberOfBed?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.numberOfBathroom}>
+                <FormLabel htmlFor='numberOfBathroom'>Number of Bathrooms</FormLabel>
+                <Input {...register('numberOfBathroom')} type='number' />
+                <FormErrorMessage>{errors.numberOfBathroom?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.roomType}>
+                <FormLabel htmlFor='roomType'>Room Type</FormLabel>
+                <Select {...register('roomType')}>
+                  <option value='ROOM'>Room</option>
+                  <option value='ENTIRE_HOME'>Entire home</option>
+                  <option value='SHARED_ROOM'>Shared</option>
+                </Select>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.about}>
+                <FormLabel htmlFor='about'>About</FormLabel>
+                <Textarea {...register('about')} />
+                <FormErrorMessage>{errors.about?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.description}>
+                <FormLabel htmlFor='description'>Description</FormLabel>
+                <Textarea {...register('description')} />
+                <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.city}>
+                <FormLabel htmlFor='city'>City</FormLabel>
+                <Select {...register('city')} value={watch('city')} onChange={(e) => setValue('city', e.target.value)}>
+                  {VALID_PROVINCES_CODE.map((city: any) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </Select>
+                <FormErrorMessage>{errors.city?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.amenities}>
+                <FormLabel htmlFor='amenities'>Amenities</FormLabel>
+                <CheckboxGroup
+                  colorScheme='green'
+                  value={watch('amenities')}
+                  onChange={(values: any) => setValue('amenities', values)}
+                >
+                  <Stack direction='column'>
+                    {AMENITIES.map((amenity: string) => (
+                      <Checkbox key={amenity} value={amenity}>
+                        {amenity}
+                      </Checkbox>
+                    ))}
+                  </Stack>
+                </CheckboxGroup>
+                <FormErrorMessage>{errors.amenities?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl id='images' isInvalid={!!errors.image}>
+                <ImageInput name="images" label="Room Images" isRequired />
+                <FormErrorMessage>{errors.image?.message}</FormErrorMessage>
+              </FormControl>
+              <FormControl isRequired isInvalid={!!errors.address}>
+                <FormLabel htmlFor='address'>Address</FormLabel>
+                <Textarea {...register('address')} />
+                <FormErrorMessage>{errors.address?.message}</FormErrorMessage>
+              </FormControl>
+            </VStack>
+            <Button mt={10} type={'submit'}>
+              Submit
+            </Button>
+          </form>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
+export default CreateRoomForm

@@ -46,4 +46,6 @@ export const navigationFn = {
   VIEW_BROADCAST: "/broadcast/:id",
 
   REPORT: "/report",
+
+  ROOM_DETAIL: "/room/:id",
 };
