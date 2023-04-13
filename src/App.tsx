@@ -23,7 +23,7 @@ const customTheme = extendTheme(themeOverride)
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={customTheme}>
+      <ChakraProvider theme={customTheme} toastOptions={{ defaultOptions: { position: 'top-right' } }}>
         <ToastContainer />
         {/* <ToastProvider> */}
         <CSSReset />
