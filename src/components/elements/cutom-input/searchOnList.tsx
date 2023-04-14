@@ -45,6 +45,7 @@ export const SearchOnList = ({ data, onChange }: Props) => {
           type='search'
           borderRadius='md'
           autoComplete='off'
+          autoFocus
           placeholder='Rechercher un pays...'
           onChange={(event) => handleSearch(event)}
           _focusWithin={{ borderColor: 'secondary' }}

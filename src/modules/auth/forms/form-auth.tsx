@@ -61,13 +61,14 @@ export const AuthForm = (props: TAutForm) => {
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen}>
       <ModalOverlay />
-      <ModalContent maxW={'50%'}>
+      <ModalContent maxW={'40%'} py={4} pb={8} w={{ xl: '38%', '2xl': '35.5rem' }} maxH={'90%'} overflowY={'auto'}>
         <ModalHeader textAlign='center'>Đăng nhập hoặc đăng ký</ModalHeader>
         <ModalCloseButton />
-        <ModalBody pt={10} pb={10}>
+        <ModalBody>
           <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
-          <LoginForm />
-          {/* <RegisterForm /> */}
+          {selectedIndex === 1 && <LoginForm />}
+          {selectedIndex === 2 && <RegisterForm />}
+
           <HStack>
             <Text w={'50%'} h={'1px'} bg={'#ccc'} />
             <Text py={3} textAlign={'center'}>
@@ -76,11 +77,36 @@ export const AuthForm = (props: TAutForm) => {
             <Text w={'50%'} h={'1px'} bg={'#ccc'} />
           </HStack>
           <VStack w={'100%'}>
-            <ButtonAuth hidden={selectedIndex === 3} onClick={()=>setSelectedIndex(3)} title='Tiếp tục với Facebook' icon={<Icons.facebook />} />
-            <ButtonAuth hidden={selectedIndex === 4} onClick={()=>setSelectedIndex(4)} title='Tiếp tục với Google' icon={<Icons.google />} />
-            <ButtonAuth hidden={selectedIndex === 5} onClick={()=>setSelectedIndex(5)} title='Tiếp tục với Apple' icon={<Icons.apple />} />
-            <ButtonAuth hidden={selectedIndex === 2} onClick={()=>setSelectedIndex(2)} title='Tiếp tục với điện thoại' icon={<Icons.phone />} />
-            <ButtonAuth hidden={selectedIndex === 1} onClick={()=>setSelectedIndex(1)} title='Tiếp tục với email' icon={<Icons.phone />} />
+            <ButtonAuth
+              hidden={selectedIndex === 3}
+              onClick={() => setSelectedIndex(3)}
+              title='Tiếp tục với Facebook'
+              icon={<Icons.facebook />}
+            />
+            <ButtonAuth
+              hidden={selectedIndex === 4}
+              onClick={() => setSelectedIndex(4)}
+              title='Tiếp tục với Google'
+              icon={<Icons.google />}
+            />
+            <ButtonAuth
+              hidden={selectedIndex === 5}
+              onClick={() => setSelectedIndex(5)}
+              title='Tiếp tục với Apple'
+              icon={<Icons.apple />}
+            />
+            <ButtonAuth
+              hidden={selectedIndex === 2}
+              onClick={() => setSelectedIndex(2)}
+              title='Tiếp tục với điện thoại'
+              icon={<Icons.phone />}
+            />
+            <ButtonAuth
+              hidden={selectedIndex === 1}
+              onClick={() => setSelectedIndex(1)}
+              title='Tiếp tục với email'
+              icon={<Icons.email />}
+            />
           </VStack>
         </ModalBody>
       </ModalContent>

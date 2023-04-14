@@ -1,4 +1,5 @@
 import { z } from "zod";
+import validator from 'validator'
 
 export const LoginFormSchema = z.object({
   email: z
@@ -122,3 +123,11 @@ export const VerifyPinCodeFormSchema = z.object({
       message: "Pin code must be 6 characters",
     }),
 });
+
+export const PhoneFormSchema = z.object({
+  // phone: z.string({
+  //   required_error: 'Phone is required'
+  // })
+  // .min(1,'Phone is required')
+  phone: z.string().refine(validator.isMobilePhone)
+})
