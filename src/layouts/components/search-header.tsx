@@ -124,6 +124,11 @@ export const HeaderBottom = () => {
                     <MenuItem minH='40px'>
                       <Text>Cho thuê chỗ ở qua Airbnb</Text>
                     </MenuItem>
+                    <Link href='/my-listings'>
+                      <MenuItem minH='40px'>
+                        <Text>My listings</Text>
+                      </MenuItem>
+                    </Link>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuGroup>

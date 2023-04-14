@@ -22,3 +22,15 @@ export const uploadImage = (imageData: any) => {
 
   return data
 }
+
+export const deleteImage = (url: string) => {
+  const data = axiosClient.delete(`/files/${url}`)
+
+  return data
+}
+
+export const myListing = () => {
+  const data = axiosClient.get('/room/user/my-listings')
+
+  return data
+}
