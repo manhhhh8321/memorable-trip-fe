@@ -121,7 +121,7 @@ export const VerifyPinCodeFormSchema = z.object({
     })
     .length(6, {
       message: "Pin code must be 6 characters",
-    }),
+    }),    
 });
 
 export const PhoneFormSchema = z.object({
