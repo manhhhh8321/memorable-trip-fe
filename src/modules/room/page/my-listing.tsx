@@ -1,83 +1,39 @@
-import React, { useEffect, useState } from 'react'
-import { RoomDto } from '../interface/room.interface'
-import { Box, Image, Text } from '@chakra-ui/react'
-import { myListing } from '../api/room.api'
+import { SimpleGrid, Button } from '@chakra-ui/react'
+import { useQuery } from 'react-query'
+import axios from 'axios'
+import RoomCard from './room-card'
+import { getRoomByUser } from '../api/room.api'
 
 const MyListing = () => {
-  const [rooms, setRooms] = useState<RoomDto[] | null>(null)
+  const {
+    data: rooms,
+    isLoading,
+    error
+  } = useQuery('rooms', async () => {
+    const response = await getRoomByUser()
+    const d = response.data
+    return response.data
+  })
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await myListing()
-
-        setRooms(response.data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchRooms()
-  }, [])
-
-  if (rooms) {
+  if (isLoading) {
     return (
-      <Box display='flex' flexWrap='wrap' justifyContent='center'>
-        {rooms.map((room: any) => (
-          <Box key={room.roomName} maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' m='2' shadow='md'>
-            <Image src={room.image[0]} alt={room.roomName} />
-            <Box p='6'>
-              <Box display='flex' alignItems='baseline'>
-                <Text fontSize='2xl' fontWeight='semibold' mr='2'>
-                  {room.roomName}
-                </Text>
-                <Text fontSize='lg' color='gray.500'>
-                  {room.price}
-                </Text>
-              </Box>
-              <Box>
-                <Text fontWeight='semibold' mt='1'>
-                  Living Rooms: {room.numberOfLivingRoom}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Bedrooms: {room.numberOfBedroom}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Beds: {room.numberOfBed}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Bathrooms: {room.numberOfBathroom}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Type: {room.roomType}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  About: {room.about}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Description: {room.description}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  City: {room.city}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Amenities:{' '}
-                  {room.roomAmenities && room.roomAmenities.length > 0
-                    ? room.roomAmenities.map((amenity: any) => amenity.amenities.name).join(', ')
-                    : 'None'}
-                </Text>
-                <Text fontWeight='semibold' mt='1'>
-                  Address: {room.address}
-                </Text>
-              </Box>
-            </Box>
-          </Box>
-        ))}
-      </Box>
+      <Button isLoading loadingText='Loading...'>
+        Loading
+      </Button>
     )
-  } else {
-    return <div>Loading...</div>
   }
+
+  console.log('rooms', rooms)
+
+  if (!rooms) {
+    return <div>No rooms found</div>
+  }
+
+  return (
+    <SimpleGrid columns={[1, 2, 3]} spacing='40px' px='10' py='20' bg='gray.50' borderRadius='xl'>
+      {rooms && rooms.length && rooms?.map((room: any) => <RoomCard key={room.id} room={room} />)}
+    </SimpleGrid>
+  )
 }
 
 export default MyListing

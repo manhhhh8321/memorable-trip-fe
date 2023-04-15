@@ -29,8 +29,20 @@ export const deleteImage = (url: string) => {
   return data
 }
 
-export const myListing = () => {
+export const getRoomByUser = () => {
   const data = axiosClient.get('/room/user/my-listings')
+
+  return data
+}
+
+export const updateRoom = (id: string, roomData: any) => {
+  const data = axiosClient.put(`/room/${id}`, roomData)
+
+  return data
+}
+
+export const deleteRoom = (id: string) => {
+  const data = axiosClient.delete(`/room/${id}`)
 
   return data
 }

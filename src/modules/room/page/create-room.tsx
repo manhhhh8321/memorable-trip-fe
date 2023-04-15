@@ -51,6 +51,7 @@ const CreateRoomForm = () => {
 
       if (room) {
         toast.success('Room created successfully!')
+        navigate('/my-listings')
       }
     } catch (error: any) {
       toast.error(`Error submitting room data: ${error.response.data.message[0]}`)

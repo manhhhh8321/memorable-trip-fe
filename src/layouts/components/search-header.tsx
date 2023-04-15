@@ -66,7 +66,9 @@ export const HeaderBottom = () => {
                 alt='not'
               />
             </Text>
-            <Text>airbnbF</Text>
+            <Link href='/'>
+              <Text>Memorable Trip</Text>
+            </Link>
           </HStack>
         </Box>
 
@@ -89,7 +91,9 @@ export const HeaderBottom = () => {
         </Popover>
         <Box>
           <HStack spacing={3}>
-            <Link href='/room' onClick={handleCreateRoom}>Cho thuê chỗ ở qua Airbnb</Link>
+            <Link href='/room' onClick={handleCreateRoom}>
+              Cho thuê chỗ ở qua Airbnb
+            </Link>
             <Text>
               <MdLanguage size={24} />
             </Text>
