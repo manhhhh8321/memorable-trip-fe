@@ -79,10 +79,10 @@ export enum PaymentType {
 export interface RoomDto {
   roomName: string
   price: number
-  numberOfLivingRoom: string
-  numberOfBedroom: string
-  numberOfBed: string
-  numberOfBathroom: string
+  numberOfLivingRoom: number
+  numberOfBedroom: number
+  numberOfBed: number
+  numberOfBathroom: number
   roomType: string
   about: string
   description: string
