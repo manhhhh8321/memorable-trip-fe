@@ -69,7 +69,6 @@ export const FinishRegisterForm = ({
     const phone = localStorage.getItem('phone') || ''
 
     data = { ...data, phone }
-    console.log('aaa', data)
 
     try {
       const user = await postRegister(data)
@@ -82,7 +81,6 @@ export const FinishRegisterForm = ({
       }
     } catch (error: any) {
       toast.error(`Register failed: ${error.response.data.errors}` || `Register failed: ${error.errors}`)
-      console.log('aaa', error)
     }
   }
   console.log(errors)
