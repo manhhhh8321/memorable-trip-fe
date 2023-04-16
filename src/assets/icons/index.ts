@@ -7,7 +7,7 @@ import { usersIcon } from "./users";
 import { heart } from "./heart-icon";
 import { star } from "./base-icon";
 import { chevronLeft, left, right } from './arrow-icon';
-import { phone, apple,google, facebook } from "./social-icon";
+import { phone, apple,google, facebook, email } from "./social-icon";
 
 export interface IIconProps {
   w?: number | string
@@ -34,4 +34,5 @@ export const Icons = {
   apple,
   google,
   facebook,
+  email,
 }

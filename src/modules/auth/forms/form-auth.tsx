@@ -33,62 +33,100 @@ import LoginForm from './login-form'
 import { getAccessToken } from '~/helper'
 import { MdFacebook } from 'react-icons/md'
 import { Icons } from '~/assets'
+import { RegisterForm } from './register-form'
+import { FinishRegisterForm } from './finish-register-form'
+import { enumRegister } from '../models'
 
 type TAutForm = {
   onOpen?: () => void
   onClose: any
   isOpen: boolean
+  selectedIndex?: number
+  setSelectedIndex?: any
 }
 type TButtonAuth = {
+  hidden?: boolean
   title: string
   icon: React.ReactNode | JSX.Element
   onClick?: (event?: any) => void
 }
 export const AuthForm = (props: TAutForm) => {
-  const { isOpen, onClose } = props
+  const { isOpen, onClose, selectedIndex, setSelectedIndex } = props
+  const [step, setStep] = useState(1)
+  const { isOpen: isOpenFinish ,onClose: onCloseFinish} = useDisclosure()
+  // const [selectedIndex, setSelectedIndex] = useState<number>(1)
   const isAuth = getAccessToken()
   useEffect(() => {
     !!isAuth && onClose()
   }, [isAuth])
 
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-  const [scrollBehavior, setScrollBehavior] = useState('inside')
-  const [showPassword, setShowPassword] = useState(false)
-
   const btnRef = useRef(null)
 
   return (
-    <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen}>
-      <ModalOverlay />
-      <ModalContent maxW={'50%'}>
-        <ModalHeader textAlign='center'>Đăng nhập hoặc đăng ký</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pt={10} pb={10}>
-          <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
-          <LoginForm />
-          <HStack>
-            <Text w={'50%'} h={'1px'} bg={'#ccc'} />
-            <Text py={3} textAlign={'center'}>
-              Hoặc
-            </Text>
-            <Text w={'50%'} h={'1px'} bg={'#ccc'} />
-          </HStack>
-          <VStack w={'100%'}>
-            <ButtonAuth title='Tiếp tục với Facebook' icon={<Icons.facebook />} />
-            <ButtonAuth title='Tiếp tục với Google' icon={<Icons.google />} />
-            <ButtonAuth title='Tiếp tục với Apple' icon={<Icons.apple />} />
-            <ButtonAuth title='Tiếp tục với điện thoại' icon={<Icons.phone />} />
-          </VStack>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+    <>
+      <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen}>
+        <ModalOverlay />
+        <ModalContent maxW={'40%'} py={4} pb={8} w={{ xl: '38%', '2xl': '35.5rem' }} maxH={'90%'} overflowY={'auto'}>
+          <ModalHeader textAlign='center'>Đăng nhập hoặc đăng ký</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
+            {selectedIndex === 1 && <LoginForm />}
+            {selectedIndex === 2 && <RegisterForm onCloseAuth={onClose} />}
+
+            <HStack>
+              <Text w={'50%'} h={'1px'} bg={'#ccc'} />
+              <Text py={3} textAlign={'center'}>
+                Hoặc
+              </Text>
+              <Text w={'50%'} h={'1px'} bg={'#ccc'} />
+            </HStack>
+            <VStack w={'100%'}>
+              <ButtonAuth
+                hidden={selectedIndex === 3}
+                onClick={() => setSelectedIndex(3)}
+                title='Tiếp tục với Facebook'
+                icon={<Icons.facebook />}
+              />
+              <ButtonAuth
+                hidden={selectedIndex === 4}
+                onClick={() => setSelectedIndex(4)}
+                title='Tiếp tục với Google'
+                icon={<Icons.google />}
+              />
+              <ButtonAuth
+                hidden={selectedIndex === 5}
+                onClick={() => setSelectedIndex(5)}
+                title='Tiếp tục với Apple'
+                icon={<Icons.apple />}
+              />
+              <ButtonAuth
+                hidden={selectedIndex === 2}
+                onClick={() => setSelectedIndex(2)}
+                title='Tiếp tục với điện thoại'
+                icon={<Icons.phone />}
+              />
+              <ButtonAuth
+                hidden={selectedIndex === 1}
+                onClick={() => setSelectedIndex(1)}
+                title='Tiếp tục với email'
+                icon={<Icons.email />}
+              />
+            </VStack>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      {/* <FinishRegisterForm isOpenFinish={step === enumRegister.FINISH_REGISTER} onCloseFinish={onClose} hidden={step !== enumRegister.FINISH_REGISTER} setStep={setStep} /> */}
+
+    </>
   )
 }
 
 const ButtonAuth = (props: TButtonAuth) => {
-  const { title, icon, onClick } = props
+  const { title, icon, hidden, onClick } = props
   return (
     <HStack
+      hidden={hidden}
       pos={'relative'}
       w={'100%'}
       bg={'white'}
@@ -103,7 +141,9 @@ const ButtonAuth = (props: TButtonAuth) => {
       onClick={onClick}
     >
       {/* <Icon pos='absolute' left={4} color={'facebook.600'} w={30} h={30} /> */}
-      <Text pos='absolute' left={4} color={'facebook.600'}>{icon}</Text>
+      <Text pos='absolute' left={4} color={'facebook.600'}>
+        {icon}
+      </Text>
       <Text>{title}</Text>
     </HStack>
   )

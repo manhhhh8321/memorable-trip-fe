@@ -1,4 +1,5 @@
 import { z } from "zod";
+import validator from 'validator'
 
 export const LoginFormSchema = z.object({
   email: z
@@ -121,4 +122,49 @@ export const VerifyPinCodeFormSchema = z.object({
     .length(6, {
       message: "Pin code must be 6 characters",
     }),
+});
+
+export const PhoneFormSchema = z.object({
+  phone: z.string().refine(validator.isMobilePhone)
+})
+
+export const OTPFormSchema = z.object({
+  otp: z.string({ required_error: 'OTP is required' })
+    .min(4, "Please fill all otp")
+})
+export const FinishRegisterFormSchema = z.object({
+  name: z
+    .string({
+      required_error: "Name is required",
+    })
+    .trim()
+    .min(1, 'Name is required')
+    .max(100, {
+      message: "The name field can only enter less than 100 characters",
+    }),
+  surname: z
+    .string({
+      required_error: "Surname is required"
+    })
+    .trim()
+    .min(1, 'The Surname is required')
+    .max(100, {
+      message: "The Surname field can only enter less than 100 characters",
+    }),
+  dob: z
+    .string({
+      required_error: "The birthday is required",
+    })
+    .trim()
+    .min(1, 'The birthday is required'),
+  email: z
+    .string({
+      required_error: "Email is required",
+      invalid_type_error: "Invalid email",
+    })
+    .trim()
+    .max(100, {
+      message: "The email field can only enter less than 100 characters",
+    })
+    .email(),
 });
