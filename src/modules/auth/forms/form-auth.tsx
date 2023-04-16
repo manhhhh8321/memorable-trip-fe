@@ -53,7 +53,7 @@ type TButtonAuth = {
 export const AuthForm = (props: TAutForm) => {
   const { isOpen, onClose, selectedIndex, setSelectedIndex } = props
   const [step, setStep] = useState(1)
-  const { isOpen: isOpenFinish ,onClose: onCloseFinish} = useDisclosure()
+  const { isOpen: isOpenFinish, onClose: onCloseFinish } = useDisclosure()
   // const [selectedIndex, setSelectedIndex] = useState<number>(1)
   const isAuth = getAccessToken()
   useEffect(() => {
@@ -67,17 +67,17 @@ export const AuthForm = (props: TAutForm) => {
       <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent maxW={'40%'} py={4} pb={8} w={{ xl: '38%', '2xl': '35.5rem' }} maxH={'90%'} overflowY={'auto'}>
-          <ModalHeader textAlign='center'>Đăng nhập hoặc đăng ký</ModalHeader>
+          <ModalHeader textAlign='center'>Log in or sign up</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontSize={24}>Chào mừng bạn đến với Airbnb</Text>
+            <Text fontSize={24}>Welcome to Memorable Trip</Text>
             {selectedIndex === 1 && <LoginForm />}
             {selectedIndex === 2 && <RegisterForm onCloseAuth={onClose} />}
 
             <HStack>
               <Text w={'50%'} h={'1px'} bg={'#ccc'} />
               <Text py={3} textAlign={'center'}>
-                Hoặc
+                Or
               </Text>
               <Text w={'50%'} h={'1px'} bg={'#ccc'} />
             </HStack>
@@ -85,31 +85,31 @@ export const AuthForm = (props: TAutForm) => {
               <ButtonAuth
                 hidden={selectedIndex === 3}
                 onClick={() => setSelectedIndex(3)}
-                title='Tiếp tục với Facebook'
+                title='Continue with Facebook'
                 icon={<Icons.facebook />}
               />
               <ButtonAuth
                 hidden={selectedIndex === 4}
                 onClick={() => setSelectedIndex(4)}
-                title='Tiếp tục với Google'
+                title='Continue with Google'
                 icon={<Icons.google />}
               />
               <ButtonAuth
                 hidden={selectedIndex === 5}
                 onClick={() => setSelectedIndex(5)}
-                title='Tiếp tục với Apple'
+                title='Continue with Apple'
                 icon={<Icons.apple />}
               />
               <ButtonAuth
                 hidden={selectedIndex === 2}
                 onClick={() => setSelectedIndex(2)}
-                title='Tiếp tục với điện thoại'
+                title='Continue with phone'
                 icon={<Icons.phone />}
               />
               <ButtonAuth
                 hidden={selectedIndex === 1}
                 onClick={() => setSelectedIndex(1)}
-                title='Tiếp tục với email'
+                title='Continue with email'
                 icon={<Icons.email />}
               />
             </VStack>
@@ -117,7 +117,6 @@ export const AuthForm = (props: TAutForm) => {
         </ModalContent>
       </Modal>
       {/* <FinishRegisterForm isOpenFinish={step === enumRegister.FINISH_REGISTER} onCloseFinish={onClose} hidden={step !== enumRegister.FINISH_REGISTER} setStep={setStep} /> */}
-
     </>
   )
 }

@@ -7,9 +7,12 @@ import { LoginFormSchema, OTPFormSchema, PhoneFormSchema } from '~/validations'
 import { Countries } from '~/mocks'
 import { enumRegister } from '../models'
 import OtpInput from 'react18-input-otp'
+import postVerifyOtp from '../api/verify-code.api'
+import { toast } from 'react-toastify'
 
 type TRegisterPhone = {
-  otp: string
+  code: string
+  phone: string
 }
 interface IRegisterPhone {
   hidden?: boolean
@@ -19,12 +22,13 @@ interface IRegisterPhone {
 }
 
 const initialValuesPhone = {
-  otp: ''
+  code: '',
+  phone: ''
 } as TRegisterPhone
 
-export const OTPFormPhone = ({ hidden, setStep,onCloseAuth, onOpenFinish }: IRegisterPhone) => {
+export const OTPFormPhone = ({ hidden, setStep, onCloseAuth, onOpenFinish }: IRegisterPhone) => {
   const [value, setValue] = useState('')
-  const {isOpen, onClose} = useDisclosure()
+  const { isOpen, onClose } = useDisclosure()
 
   const {
     handleSubmit,
@@ -34,17 +38,30 @@ export const OTPFormPhone = ({ hidden, setStep,onCloseAuth, onOpenFinish }: IReg
     defaultValues: initialValuesPhone,
     resolver: zodResolver(OTPFormSchema)
   })
-  const onSubmit = (data: any) => {
-    setStep(enumRegister.FINISH_REGISTER)
-    // onCloseAuth()
-    onOpenFinish()
+  const onSubmit = async (data: TRegisterPhone) => {
+    const phone = localStorage.getItem('phone') || ''
+
+    data = { ...data, phone }
+
+    try {
+      const response = await postVerifyOtp(data)
+
+      if (response) {
+        setStep(enumRegister.FINISH_REGISTER)
+        onOpenFinish()
+        toast.success(response.data.message)
+      }
+    } catch (error: any) {
+      toast.error(error.response.data.message[0] || 'Something went wrong')
+      console.log(error)
+    }
   }
 
   return (
     <VStack hidden={hidden} mt={10} w={'100%'} as='form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
-        name='otp'
+        name='code'
         render={({ field: { value, onChange } }) => (
           <Box w={'100%'}>
             <OtpInput
@@ -52,12 +69,12 @@ export const OTPFormPhone = ({ hidden, setStep,onCloseAuth, onOpenFinish }: IReg
               shouldAutoFocus={true}
               value={value}
               onChange={onChange}
-              numInputs={4}
+              numInputs={6}
               separator={<span>-</span>}
               // separateAfter={3}
-              // onSubmit={console.log(otp)}
+              onSubmit={onSubmit}
             />
-            {errors.otp && <Text variant='error'>{errors.otp.message}</Text>}
+            {errors.code && <Text variant='error'>{errors.code.message}</Text>}
           </Box>
         )}
       />
@@ -71,10 +88,10 @@ export const OTPFormPhone = ({ hidden, setStep,onCloseAuth, onOpenFinish }: IReg
           _hover={{ bg: 'rgba(182, 180, 180, 0.7)' }}
           _active={{ bg: 'rgb(221, 217, 217)' }}
           color='white'
-          onClick={()=>setStep(enumRegister.PHONE_REGISTER)}
+          onClick={() => setStep(enumRegister.PHONE_REGISTER)}
           disabled={!isValid}
         >
-          Tiếp tục
+          Continue
         </Button>
         <Button
           type='submit'
@@ -86,7 +103,7 @@ export const OTPFormPhone = ({ hidden, setStep,onCloseAuth, onOpenFinish }: IReg
           color='white'
           // disabled={!isValid}
         >
-          Tiếp tục
+          Continue
         </Button>
       </HStack>
     </VStack>

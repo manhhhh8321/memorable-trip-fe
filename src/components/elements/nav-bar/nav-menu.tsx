@@ -21,6 +21,7 @@ import SwiperCore, { Navigation, Pagination, Controller, Thumbs } from 'swiper'
 import 'swiper/swiper-bundle.css'
 import { Icons } from '~/assets'
 import { BREAK_POINTS } from '~/configs'
+import { DESCRIPTION } from '~/modules/room/interface/room.interface'
 // import './styles.css'
 
 export type TNavigation = {
@@ -31,57 +32,57 @@ export type TNavigation = {
 
 const sidebarNavigations = [
   {
-    label: 'Nhà nhỏ',
+    label: DESCRIPTION[0],
     to: navigationFn.HOME,
     icon: MdOutlineAdminPanelSettings
   },
   {
-    label: 'Thật ấn tượng!',
+    label: DESCRIPTION[1],
     to: '/impress',
     icon: FiUsers
   },
   {
-    label: 'Nhà trên núi',
+    label: DESCRIPTION[2],
     to: '/fsd',
     icon: FaBaby
   },
   {
-    label: 'Bãi biển',
+    label: DESCRIPTION[3],
     to: '/sfd',
     icon: FaBaby
   },
   {
-    label: 'Được ưa chuộng',
+    label: DESCRIPTION[4],
     to: '/fds',
     icon: MdOutlineArticle
   },
   {
-    label: 'Khung cảnh tuyệt vời',
+    label: DESCRIPTION[5],
     to: '/fsdf',
     icon: BiVideoRecording
   },
   {
-    label: 'Thuyền',
+    label: DESCRIPTION[9],
     to: '/jhg',
     icon: MdOutlineForum
   },
   {
-    label: 'Interactive Room',
+    label: DESCRIPTION[8],
     to: navigationFn.HOME,
     icon: MdOutlineRoomPreferences
   },
   {
-    label: 'Podcast',
+    label: DESCRIPTION[7],
     to: navigationFn.HOME,
     icon: MdPodcasts
   },
   {
-    label: 'Broadcast',
+    label: DESCRIPTION[10],
     to: navigationFn.HOME,
     icon: MdCast
   },
   {
-    label: 'Interactive Room',
+    label: DESCRIPTION[8],
     to: navigationFn.HOME,
     icon: MdOutlineTouchApp
   },
@@ -135,14 +136,14 @@ export const NavMenu = (props: SidebarProps) => {
         slidesPerView={10}
         breakpoints={BREAK_POINTS}
         onInit={(swiper) => console.log('Swiper initialized!', swiper)}
-        onSlideChange={(swiper) => {  
+        onSlideChange={(swiper) => {
           console.log('Slide index changed to: ', swiper.activeIndex)
         }}
         onReachEnd={() => console.log('Swiper end reached')}
       >
         {sidebarNavigations.map((navigation) => {
           return (
-            <SwiperSlide style={{width:"fit-content"}} key={navigation.label}>
+            <SwiperSlide style={{ width: 'fit-content' }} key={navigation.label}>
               <NavItem key={navigation.label} isCollapsed={isCollapsed} {...navigation} />
             </SwiperSlide>
           )

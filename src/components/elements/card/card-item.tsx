@@ -1,4 +1,5 @@
 import { Box, Card, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react'
+import moment from 'moment';
 import React from 'react'
 import { Icons } from '~/assets'
 
@@ -79,11 +80,11 @@ export const CardItem = ({ data }: any) => {
                 {data?.address}
               </Text>
               <Text fontSize={15} color='#9B9997' fontWeight={400}>
-                {data?.createdAt}
+                {data?.createdAt && moment(data?.createdAt).format('DD/MM/YYYY')}
               </Text>
               <Text fontSize={15} color='#9B9997' fontWeight={400}>
                 <Text as='span' fontWeight={600} color='black'>
-                  ₫{data?.price}
+                  ${data?.price}
                 </Text>{' '}
                 đêm
               </Text>

@@ -26,7 +26,7 @@ export const supports = [
 ]
 export const communities = [
   {
-    text: 'Airbnb.org: Housing for good',
+    text: 'Memorable-Trip.org: Housing for good',
     url: '/'
   },
   {
@@ -37,7 +37,7 @@ export const communities = [
 
 export const guests = [
   {
-    text: 'Rentals on Airbnb',
+    text: 'Rentals on Memorable Trip',
     url: '/'
   },
   {
@@ -63,7 +63,7 @@ export const airbnb = [
     url: '/'
   },
   {
-    text: 'Discover Airbnb',
+    text: 'Discover Memorable Trip',
     url: '/'
   },
   {

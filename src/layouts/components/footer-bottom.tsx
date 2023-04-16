@@ -12,7 +12,7 @@ export const FooterBottom = (props: TFooterBottom) => {
     <HStack h={'47px'} w={'100%'} justifyContent={'space-between'} alignItems='center'>
       <HStack alignItems='center' fontSize={15}>
         <Text fontSize={{ xl: 13, '1.5xl': 15 }} fontWeight={300}>
-          &copy; 2023 Airbnb, Inc.
+          &copy; 2023 Memorable trip, Inc.
         </Text>
         <Text>·</Text>
         <ChakraLink _hover={{ textDecoration: 'underline' }} fontWeight={300} fontSize={{ xl: 14, '2xl': 15 }}>
