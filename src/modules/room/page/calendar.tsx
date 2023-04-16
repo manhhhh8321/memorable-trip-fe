@@ -4,6 +4,7 @@ import { Box, Button, Card, Heading, Text } from '@chakra-ui/react'
 import { CreateBookingDto, PaymentType } from '../interface/room.interface'
 import RangePicker from 'react-datepicker'
 import '../css/book-calendar.css'
+import { navigationFn } from '~/routes'
 
 interface BookCalendarProps {
   roomId: number
@@ -23,8 +24,9 @@ const BookCalendar: React.FC<BookCalendarProps> = ({ roomId, pricePerNight }) =>
     const diffInDays = Math.ceil((date[1].getTime() - date[0].getTime()) / (1000 * 3600 * 24))
     setTotalPrice(diffInDays * pricePerNight)
   }
-
+  
   const handleSubmit = () => {
+    navigate(navigationFn.PAYMENT)
     if (checkIn && checkOut && totalPrice) {
       const bookingData: CreateBookingDto = {
         roomId,

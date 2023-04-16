@@ -48,4 +48,6 @@ export const navigationFn = {
   REPORT: "/report",
 
   ROOM_DETAIL: "/room/:id",
+
+  PAYMENT: "/payment",
 };

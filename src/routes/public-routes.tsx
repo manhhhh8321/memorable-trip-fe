@@ -11,6 +11,7 @@ import { BlankPage, HomePage } from '~/modules'
 import { homeRoutes } from './home-routes'
 import { communityRoutes } from './community-routes'
 import RoomDetailRoutes from './room-detail-route'
+import { paymentRoutes } from './payment'
 
 export const publicRoutes: RouteObject = {
   element: <DefaultLayout />,
@@ -28,5 +29,6 @@ export const publicRoutes: RouteObject = {
       element: <HomePage/>
       // element: <Navigate to={navigationFn.HOME} replace />
     },
+    { ...paymentRoutes},
   ]
 }
