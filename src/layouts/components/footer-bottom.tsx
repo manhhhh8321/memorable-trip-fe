@@ -4,27 +4,27 @@ import { MdExpandLess, MdOutlineLanguage } from 'react-icons/md'
 import colors from '~/libs/chakra/foundations/colors'
 
 type TFooterBottom = {
-  onOpen?: () => void;
+  onOpen?: () => void
 }
 export const FooterBottom = (props: TFooterBottom) => {
-  const { onOpen } = props;
+  const { onOpen } = props
   return (
     <HStack h={'47px'} w={'100%'} justifyContent={'space-between'} alignItems='center'>
       <HStack alignItems='center' fontSize={15}>
         <Text fontSize={{ xl: 13, '1.5xl': 15 }} fontWeight={300}>
-          &copy; 2023 Airbnb, Inc.
+          &copy; 2023 Memorable trip, Inc.
         </Text>
         <Text>·</Text>
         <ChakraLink _hover={{ textDecoration: 'underline' }} fontWeight={300} fontSize={{ xl: 14, '2xl': 15 }}>
-          Quyền riêng tư
+          Privacy
         </ChakraLink>
         <Text>·</Text>
         <ChakraLink _hover={{ textDecoration: 'underline' }} fontWeight={300} fontSize={{ xl: 14, '2xl': 15 }}>
-          Điều khoản
+          Terms
         </ChakraLink>
         <Text>·</Text>
         <ChakraLink _hover={{ textDecoration: 'underline' }} fontWeight={300} fontSize={{ xl: 14, '2xl': 15 }}>
-          Sơ đồ trang web
+          Site map
         </ChakraLink>
       </HStack>
       <HStack alignItems='center' spacing={3}>
@@ -33,18 +33,18 @@ export const FooterBottom = (props: TFooterBottom) => {
             <MdOutlineLanguage />
           </Text>
           <Text fontWeight={500} fontSize={{ xl: 14, '2xl': 15 }} _hover={{ textDecoration: 'underline' }}>
-            Tiếng Việt (VN)
+            English (ENG)
           </Text>
         </HStack>
         <HStack cursor='pointer' spacing={1}>
-          <Text fontSize={16}>&#x20AB;</Text>
+          <Text fontSize={16}>$</Text>
           <Text fontWeight={500} fontSize={{ xl: 14, '2xl': 15 }} _hover={{ textDecoration: 'underline' }}>
-            VND
+            USD
           </Text>
         </HStack>
         <HStack cursor='pointer' onClick={onOpen}>
           <Text fontWeight={500} fontSize={{ xl: 14, '2xl': 15 }} _hover={{ textDecoration: 'underline' }}>
-            Hỗ trợ tài nguyên
+            Resource Center
           </Text>
           <Text>
             <MdExpandLess />

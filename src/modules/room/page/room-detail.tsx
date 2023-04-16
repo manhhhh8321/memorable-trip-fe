@@ -202,12 +202,11 @@ export const RoomDetailPage: React.FC = () => {
           </Text>
         </Box>
         <Box width='30%' ml={10}>
-          <Box mb={5} position='sticky' top={20}>
+          <Box mb={20} position='sticky' top={20}>
             <BookCalendar roomId={id} pricePerNight={price} />
           </Box>
         </Box>
       </Flex>
-      <Footer />
     </Flex>
   )
 }
