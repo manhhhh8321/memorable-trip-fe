@@ -5,16 +5,21 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginFormSchema, PhoneFormSchema } from '~/validations'
 import { Countries } from '~/mocks'
+import {enumRegister} from '../models'
 
 type TRegisterPhone = {
   phone: string
+}
+interface IRegisterPhone {
+  hidden?: boolean
+  setStep?: any
 }
 
 const initialValuesPhone = {
   phone: ''
 } as TRegisterPhone
 
-export const RegisterFormPhone = () => {
+export const RegisterFormPhone = ({ hidden, setStep }: IRegisterPhone) => {
   const [value, setValue] = useState('')
   const {
     handleSubmit,
@@ -25,6 +30,7 @@ export const RegisterFormPhone = () => {
     resolver: zodResolver(PhoneFormSchema)
   })
   const onSubmit = (data: any) => {
+    setStep(enumRegister.CONFIRM_OTP_REGISTER)
     console.log(data)
   }
   const countryOptions = Countries.map(({ name, code, dial_code }) => ({
@@ -34,7 +40,7 @@ export const RegisterFormPhone = () => {
   }))
 
   return (
-    <VStack mt={10} w={'100%'} as='form' onSubmit={handleSubmit(onSubmit)}>
+    <VStack hidden={hidden} mt={10} w={'100%'} as='form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
         name='phone'
