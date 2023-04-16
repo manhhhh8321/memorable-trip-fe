@@ -21,12 +21,15 @@ import { FinishRegisterFormSchema, LoginFormSchema, OTPFormSchema, PhoneFormSche
 import { Countries } from '~/mocks'
 import { enumRegister } from '../models'
 import OtpInput from 'react18-input-otp'
+import { postRegister } from '../api/create-user.api'
+import { toast } from 'react-toastify'
 
 type TFinishRegister = {
-  name: string
+  firstName: string
+  lastName: string
   email: string
-  dob: string
-  surname: string
+  gender: string
+  password: string
 }
 interface IRegisterPhone {
   hidden?: boolean
@@ -37,10 +40,11 @@ interface IRegisterPhone {
 }
 
 const initialValuesFinish = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
-  dob: '',
-  surname: ''
+  gender: '',
+  password: ''
 } as TFinishRegister
 
 export const FinishRegisterForm = ({
@@ -61,11 +65,25 @@ export const FinishRegisterForm = ({
     defaultValues: initialValuesFinish,
     resolver: zodResolver(FinishRegisterFormSchema)
   })
-  const onSubmit = (data: any) => {
-    // setStep(enumRegister.FINISH_REGISTER)
-    // onCloseFinish()
-    onOpenFinishRegister()
-    console.log(data)
+  const onSubmit = async (data: any) => {
+    const phone = localStorage.getItem('phone') || ''
+
+    data = { ...data, phone }
+    console.log('aaa', data)
+
+    try {
+      const user = await postRegister(data)
+
+      if (user) {
+        setStep(enumRegister.FINISH_REGISTER)
+        onCloseFinish()
+        onOpenFinishRegister()
+        toast.success('Register successfully')
+      }
+    } catch (error: any) {
+      toast.error(`Register failed: ${error.response.data.errors}` || `Register failed: ${error.errors}`)
+      console.log('aaa', error)
+    }
   }
   console.log(errors)
   return (
@@ -80,60 +98,60 @@ export const FinishRegisterForm = ({
         overflowY={'auto'}
       >
         <ModalHeader textAlign='center' py={2}>
-          Hoàn tất đăng ký
+          Complete registering
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <VStack alignItems={'left'} hidden={hidden} w={'100%'} as='form' onSubmit={handleSubmit(onSubmit)}>
             <Controller
-              name='name'
+              name='firstName'
               control={control}
               render={({ field }) => (
                 <Box w='100%'>
-                  <CustomInput {...field} placeholder='Ten' isInvalid={!!errors.name} />
-                  {errors.name && <Text variant='error'>{errors.name.message}</Text>}
+                  <CustomInput {...field} placeholder='First name' isInvalid={!!errors.firstName} />
+                  {errors.firstName && <Text variant='error'>{errors.firstName.message}</Text>}
                 </Box>
               )}
             />
             <Controller
-              name='surname'
+              name='lastName'
               control={control}
               render={({ field }) => (
                 <Box w='100%'>
-                  <CustomInput {...field} placeholder='Ho' isInvalid={!!errors.surname} />
-                  {errors.surname && <Text variant='error'>{errors.surname.message}</Text>}
+                  <CustomInput {...field} placeholder='Last name' isInvalid={!!errors.lastName} />
+                  {errors.lastName && <Text variant='error'>{errors.lastName.message}</Text>}
                 </Box>
               )}
             />
             <Text color='#535353' fontSize={12} paddingBottom={4}>
-              Đảm bảo rằng tên của bạn nhập khớp với tên trên giấy tời tùy thân do chính phủ cung cấp
+              Make sure your name matches the name on your government-provided ID
             </Text>
             <Controller
-              name='dob'
+              name='gender'
               control={control}
               render={({ field }) => (
                 <Box w='100%'>
                   <Text variant='menuLabelLight' paddingBottom={4}>
-                    Email{' '}
+                    Gender{' '}
                     <Text as='span' color='white'>
                       *
                     </Text>
                   </Text>
                   <CustomInput
                     {...field}
-                    placeholder='Ngay sinh'
+                    placeholder='Gender'
                     pr={8}
-                    isInvalid={!!errors.email}
-                    minLength={8}
-                    maxLength={100}
+                    isInvalid={!!errors.gender}
+                    minLength={4}
+                    maxLength={6}
                   />
-                  {errors.dob && <Text variant='error'>{errors.dob.message}</Text>}
+                  {errors.gender && <Text variant='error'>{errors.gender.message}</Text>}
                 </Box>
               )}
             />
             <Text color='#535353' fontSize={12} paddingBottom={4}>
-              Để đăng ký, bạn phải đủ 18 tuổi trỏ lên. Ngày sinh của bạn sẽ không được chia sẻ với người dùng Airbnb
-              khác.
+              To register, you must be at least 18 years old. Your date of birth will not be shared with Memorable Trip
+              users other.{' '}
             </Text>
             <Controller
               name='email'
@@ -145,25 +163,35 @@ export const FinishRegisterForm = ({
                 </Box>
               )}
             />
+            <Controller
+              name='password'
+              control={control}
+              render={({ field }) => (
+                <Box w='100%'>
+                  <CustomInput {...field} placeholder='Password' isInvalid={!!errors.password} type='password' />
+                  {errors.password && <Text variant='error'>{errors.password.message}</Text>}
+                </Box>
+              )}
+            />
             <Text color='#535353' fontSize={12} paddingBottom={4}>
-              Chúng tôi sẽ gửi phiếu thu và xác nhận chuyến đi qua mail cho bạn
+              We will email you a receipt and confirmation of your trip{' '}
             </Text>
             <Text color='#535353' fontSize={12}>
-              Bằng việc chọn{' '}
+              By selecting{' '}
               <Text as='span' fontSize={12}>
-                Đăng ký
+                Register
               </Text>
-              , tôi đồng ý với{' '}
+              , I agree with{' '}
               <Text as='b' color='blue' fontSize={12} textDecor='underline'>
-                Điều khoản và dịch vụ, thanh toán
+                Terms and Service, Payment{' '}
               </Text>{' '}
               và{' '}
               <Text as='b' color='blue' fontSize={12} textDecor='underline'>
-                Chính sách không phân biệt
+                Non-discrimination policy{' '}
               </Text>{' '}
-              của Airbnb, đồng thời chấp thuận{' '}
+              of Memorable Trip, and also approve{' '}
               <Text as='b' color='blue' fontSize={12} textDecor='underline'>
-                Chính sách về quyền riêng tư
+                Privacy Policy{' '}
               </Text>
             </Text>
             <HStack w='100%' spacing={10} alignItems='start' pt={10}>
@@ -193,7 +221,7 @@ export const FinishRegisterForm = ({
                 color='white'
                 // disabled={!isValid}
               >
-                Đăng ký
+                Register
               </Button>
             </HStack>
           </VStack>

@@ -5,7 +5,9 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginFormSchema, PhoneFormSchema } from '~/validations'
 import { Countries } from '~/mocks'
-import {enumRegister} from '../models'
+import { enumRegister } from '../models'
+import { toast } from 'react-toastify'
+import { postSendOtp } from '../api/verify-code.api'
 
 type TRegisterPhone = {
   phone: string
@@ -29,9 +31,20 @@ export const RegisterFormPhone = ({ hidden, setStep }: IRegisterPhone) => {
     defaultValues: initialValuesPhone,
     resolver: zodResolver(PhoneFormSchema)
   })
-  const onSubmit = (data: any) => {
-    setStep(enumRegister.CONFIRM_OTP_REGISTER)
-    console.log(data)
+  const onSubmit = async (data: any) => {
+    try {
+      const sendOtp = await postSendOtp(data)
+
+      console.log('aaaaa', sendOtp)
+      if (sendOtp) {
+        setStep(enumRegister.CONFIRM_OTP_REGISTER)
+        localStorage.setItem('phone', data.phone)
+        toast.success('OTP sent successfully')
+      }
+    } catch (error) {
+      toast.error('Something went wrong')
+      console.log(error)
+    }
   }
   const countryOptions = Countries.map(({ name, code, dial_code }) => ({
     label: name,
@@ -59,12 +72,10 @@ export const RegisterFormPhone = ({ hidden, setStep }: IRegisterPhone) => {
           </Box>
         )}
       />
-
       <Text fontSize={13} mt={3}>
-        Chúng tôi sẽ gọi điện hoặc nhắn tin cho bạn để xác nhận số điện thoại. Có áp dụng phí dữ liệu và phí tin nhắn
-        tiêu chuẩn.{' '}
+        We will call or text you to confirm your phone number. Standard data and message rates may apply.{' '}
         <Text as='span' textDecor='underline' fontSize={13}>
-          Chính sách về quyền riêng tư
+          Privacy policy
         </Text>
       </Text>
       <Button
@@ -78,7 +89,7 @@ export const RegisterFormPhone = ({ hidden, setStep }: IRegisterPhone) => {
         color='white'
         // disabled={!isValid}
       >
-        Tiếp tục
+        Continue
       </Button>
     </VStack>
   )

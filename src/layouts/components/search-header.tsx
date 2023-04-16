@@ -94,7 +94,7 @@ export const HeaderBottom = () => {
         <Box>
           <HStack spacing={3}>
             <Link href='/room' onClick={handleCreateRoom}>
-              Rent a place on Airbnb
+              Rent a place on Memorable Trip
             </Link>
             <Text>
               <MdLanguage size={24} />
@@ -128,7 +128,7 @@ export const HeaderBottom = () => {
                       <Text onClick={handleProfile}>Account</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Rent a place on Airbnb</Text>
+                      <Text>Rent a place on Memorable Trip</Text>
                     </MenuItem>
                     <Link href='/my-listings'>
                       <MenuItem minH='40px'>
@@ -159,7 +159,7 @@ export const HeaderBottom = () => {
                   <MenuDivider />
                   <MenuGroup>
                     <MenuItem minH='48px'>
-                      <Text>Rent a place on Airbnb</Text>
+                      <Text>Rent a place on Memorable Trip</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
                       <Text>Help</Text>
