@@ -46,3 +46,9 @@ export const deleteRoom = (id: string) => {
 
   return data
 }
+
+export const getRoomUnavailableDates = (id: string) => {
+  const data = axiosClient.get(`/room/unavailable/${id}`)
+
+  return data
+}
