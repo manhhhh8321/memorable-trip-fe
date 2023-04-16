@@ -1,6 +1,6 @@
 export const supports = [
   {
-    text: 'Trung tâm trợ giúp',
+    text: 'Help Center',
     url: '/'
   },
   {
@@ -8,74 +8,74 @@ export const supports = [
     url: '/'
   },
   {
-    text: 'Hỗ trợ người khuyết tật',
+    text: 'Accessibility',
     url: '/'
   },
   {
-    text: 'Các tùy chọn hủy',
+    text: 'Cancellation options',
     url: '/'
   },
   {
-    text: 'Biện pháp ứng phó với đại dịch COVID-19 của chúng tôi',
+    text: 'Our COVID-19 response',
     url: '/'
   },
   {
-    text: 'Báo cáo lo ngại của hàng xóm',
+    text: 'Report neighbor concerns',
     url: '/'
   }
 ]
 export const communities = [
   {
-    text: 'Airbnb.org: nhà ở cứu trợ',
+    text: 'Airbnb.org: Housing for good',
     url: '/'
   },
   {
-    text: 'Chống phân biệt đối xử',
+    text: 'Anti-discrimination policy',
     url: '/'
   }
 ]
 
 export const guests = [
   {
-    text: 'Cho thuê nhà trên Airbnb',
+    text: 'Rentals on Airbnb',
     url: '/'
   },
   {
-    text: 'AirCover cho Chủ nhà',
+    text: 'AirCover for Hosts',
     url: '/'
   },
   {
-    text: 'Xem tài nguyên đón tiếp khách',
+    text: 'Guest resources',
     url: '/'
   },
   {
-    text: 'Truy cập diễn đàn cộng đồng',
+    text: 'Community Center',
     url: '/'
   },
   {
-    text: 'Đón tiếp khách có trách nhiệm',
+    text: 'Responsible hosting',
     url: '/'
   }
 ]
 export const airbnb = [
   {
-    text: 'Trang tin tức',
+    text: 'Newsroom',
     url: '/'
   },
   {
-    text: 'Tìm hiểu các tính năng mới',
+    text: 'Discover Airbnb',
     url: '/'
   },
   {
-    text: 'Thư ngỏ từ các nhà sáng lập',
+    text: 'Letter from our founders',
     url: '/'
   },
   {
-    text: 'Cơ hội nghề nghiệp',
+    text: 'Careers',
     url: '/'
   },
   {
-    text: 'Nhà đầu tư',
+    text: 'Investors',
     url: '/'
   }
 ]

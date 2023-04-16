@@ -5,15 +5,15 @@ import { airbnb, communities, guests, supports } from '../models'
 
 const data = [
   {
-    title: 'Hỗ trợ',
+    title: 'Support',
     listTexts: supports
   },
   {
-    title: 'Cộng đồng',
+    title: 'Community',
     listTexts: communities
   },
   {
-    title: 'Đón tiếp khách',
+    title: 'Hosting',
     listTexts: guests
   },
   {

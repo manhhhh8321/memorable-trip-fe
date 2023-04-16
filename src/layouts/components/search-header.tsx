@@ -62,9 +62,9 @@ export const HeaderBottom = () => {
             <Text>
               <Text
                 as='img'
-                width='40px'
-                height='40px'
-                src='https://cdn.baogiaothong.vn/upload/2-2022/images/2022-05-25/1-1653445668-308-width740height476.jpg'
+                width='80px'
+                height='60px'
+                src='https://ik.imagekit.io/qapuv5cpu/memorable-trip-logo.png?updatedAt=1681618177488'
                 alt='not'
               />
             </Text>
@@ -78,9 +78,9 @@ export const HeaderBottom = () => {
           <PopoverTrigger>
             <Box cursor='pointer' border={'1px solid #ccc'} py={2} px={4} borderRadius={50} ref={btnRef}>
               <HStack>
-                <Text>Địa điểm bất kỳ</Text>
-                <Text>Tuần bất kỳ</Text>
-                <Text>Thêm khách</Text>
+                <Text>Any destination</Text>
+                <Text>Any week</Text>
+                <Text>Add guests</Text>
                 <Text>
                   <Search2Icon />
                 </Text>
@@ -94,7 +94,7 @@ export const HeaderBottom = () => {
         <Box>
           <HStack spacing={3}>
             <Link href='/room' onClick={handleCreateRoom}>
-              Cho thuê chỗ ở qua Airbnb
+              Rent a place on Airbnb
             </Link>
             <Text>
               <MdLanguage size={24} />
@@ -110,25 +110,25 @@ export const HeaderBottom = () => {
                 <MenuList zIndex={10}>
                   <MenuGroup>
                     <MenuItem minH='40px'>
-                      <Text>Tin nhắn</Text>
+                      <Text>Messages</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Thông báo</Text>
+                      <Text>Notifications</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Chuyến đi</Text>
+                      <Text>Trips</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Danh sách yêu thích</Text>
+                      <Text>Wish Lists</Text>
                     </MenuItem>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuGroup>
                     <MenuItem minH='40px'>
-                      <Text onClick={handleProfile}>Tài Khoản</Text>
+                      <Text onClick={handleProfile}>Account</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Cho thuê chỗ ở qua Airbnb</Text>
+                      <Text>Rent a place on Airbnb</Text>
                     </MenuItem>
                     <Link href='/my-listings'>
                       <MenuItem minH='40px'>
@@ -139,10 +139,10 @@ export const HeaderBottom = () => {
                   <MenuDivider />
                   <MenuGroup>
                     <MenuItem minH='40px'>
-                      <Text>Trợ giúp</Text>
+                      <Text>Help</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text onClick={handleLogout}>Đăng xuất</Text>
+                      <Text onClick={handleLogout}>Log out</Text>
                     </MenuItem>
                   </MenuGroup>
                 </MenuList>
@@ -150,19 +150,19 @@ export const HeaderBottom = () => {
                 <MenuList zIndex={10}>
                   <MenuGroup>
                     <MenuItem onClick={()=>{ setSelectedIndex(1); onOpen()}} minH='48px'>
-                      <Text>Đăng nhập</Text>
+                      <Text>Log in</Text>
                     </MenuItem>
                     <MenuItem onClick={()=>{ setSelectedIndex(2); onOpen()}} minH='40px'>
-                      <Text>Đăng ký</Text>
+                      <Text>Register</Text>
                     </MenuItem>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuGroup>
                     <MenuItem minH='48px'>
-                      <Text>Cho thuê chỗ ở qua Airbnb</Text>
+                      <Text>Rent a place on Airbnb</Text>
                     </MenuItem>
                     <MenuItem minH='40px'>
-                      <Text>Trợ giúp</Text>
+                      <Text>Help</Text>
                     </MenuItem>
                   </MenuGroup>
                 </MenuList>

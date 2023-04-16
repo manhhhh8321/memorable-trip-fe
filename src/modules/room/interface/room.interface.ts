@@ -64,7 +64,7 @@ export interface RoomAmenity {
 }
 
 export interface CreateBookingDto {
-  roomId: number
+  roomId: string
   note?: string
   paymentType: PaymentType
   checkIn: Date
