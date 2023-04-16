@@ -67,3 +67,29 @@ export const facebook = (props: IIconProps) => {
     </svg>
   )
 }
+
+export const email = (props: IIconProps) => {
+  const { h = 25, w = 25 } = props
+
+  return (
+    <svg width={w} height={h} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
+      <rect
+        x={3}
+        y={6}
+        width={18}
+        height={12}
+        rx={2}
+        stroke='#333333'
+        strokeWidth={2}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M20.5737 7L12 13L3.42635 7'
+        stroke='#333333'
+        strokeWidth={2}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  )}

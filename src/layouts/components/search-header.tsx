@@ -24,6 +24,8 @@ import { clearStorage, getAccessToken } from '~/helper'
 import { useMutationLogout } from '~/modules/auth/api'
 import { useNavigate } from 'react-router'
 export const HeaderBottom = () => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(1)
+
   const navigate = useNavigate()
   // const [isOpen, setIsOpen] = useState(false)
   const btnRef = React.useRef(null)
@@ -105,7 +107,7 @@ export const HeaderBottom = () => {
                 </HStack>
               </MenuButton>
               {!!isAuth ? (
-                <MenuList>
+                <MenuList zIndex={10}>
                   <MenuGroup>
                     <MenuItem minH='40px'>
                       <Text>Messages</Text>
@@ -147,11 +149,11 @@ export const HeaderBottom = () => {
               ) : (
                 <MenuList zIndex={10}>
                   <MenuGroup>
-                    <MenuItem onClick={onOpen} minH='48px'>
+                    <MenuItem onClick={()=>{ setSelectedIndex(1); onOpen()}} minH='48px'>
                       <Text>Log in</Text>
                     </MenuItem>
-                    <MenuItem onClick={onOpen} minH='40px'>
-                      <Text>Sign up</Text>
+                    <MenuItem onClick={()=>{ setSelectedIndex(2); onOpen()}} minH='40px'>
+                      <Text>Register</Text>
                     </MenuItem>
                   </MenuGroup>
                   <MenuDivider />
@@ -169,7 +171,7 @@ export const HeaderBottom = () => {
           </HStack>
         </Box>
       </HStack>
-      <AuthForm onClose={onClose} isOpen={isOpen} />
+      <AuthForm selectedIndex={selectedIndex} onClose={onClose} setSelectedIndex={setSelectedIndex} isOpen={isOpen} />
     </VStack>
   )
 }

@@ -104,7 +104,16 @@ const LoginForm = () => {
           Forgot your password?
         </ChakraLink>
       </Box>
-      <Button type='submit' isLoading={isSubmitting} w='100%' disabled={!isValid}>
+      <Button
+        type='submit'
+        isLoading={isSubmitting}
+        w='100%'
+        bg={'#FB8484'}
+        _hover={{ bg: 'rgba(251, 132, 132,.7)' }}
+        _active={{ bg: 'rgb(251, 132, 132)' }}
+        color='white'
+        disabled={!isValid}
+      >
         Log in
       </Button>
     </VStack>
