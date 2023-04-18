@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../css/book-calendar.css'
 import { getRoomUnavailableDates } from '../api/room.api'
 import UnavailableDatesModal from './unavailabledates-modal'
+import { navigationFn } from '~/routes'
 
 interface BookCalendarProps {
   roomId: string
@@ -36,8 +37,9 @@ const BookCalendar: React.FC<BookCalendarProps> = ({ roomId, pricePerNight }) =>
       setTotalPrice(diffInDays * pricePerNight)
     }
   }
-
+  
   const handleSubmit = () => {
+    navigate(navigationFn.PAYMENT)
     if (checkIn && checkOut && totalPrice) {
       const bookingData: CreateBookingDto = {
         roomId,
