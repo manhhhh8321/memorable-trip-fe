@@ -8,6 +8,7 @@ import '../css/book-calendar.css'
 import { getRoomUnavailableDates } from '../api/room.api'
 import UnavailableDatesModal from './unavailabledates-modal'
 import { navigationFn } from '~/routes'
+import moment from 'moment'
 
 interface BookCalendarProps {
   roomId: string
@@ -33,26 +34,24 @@ const BookCalendar: React.FC<BookCalendarProps> = ({ roomId, pricePerNight }) =>
       setCheckIn(date[0])
       setCheckOut(date[1])
 
-      const diffInDays = Math.ceil((date[1].getTime() - date[0].getTime()) / (1000 * 3600 * 24))
+      const diffInDays = Math.ceil((date[1]?.getTime() - date[0]?.getTime()) / (1000 * 3600 * 24))
       setTotalPrice(diffInDays * pricePerNight)
     }
   }
-  
+
   const handleSubmit = () => {
     navigate(navigationFn.PAYMENT)
     if (checkIn && checkOut && totalPrice) {
       const bookingData: CreateBookingDto = {
         roomId,
-        paymentType: PaymentType.CARD,
-        checkIn,
-        checkOut
+        checkIn: moment(checkIn).format('YYYY-MM-DD'),
+        checkOut: moment(checkOut).format('YYYY-MM-DD'),
+        totalPrice: totalPrice,
+        totalDiscount: 0,
+        duration: `${Math.ceil((checkOut?.getTime() - checkIn?.getTime()) / (1000 * 3600 * 24))} day(s)`
       }
-      navigate('/booking', {
-        state: {
-          bookingData,
-          totalPrice
-        }
-      })
+      navigate('/payment', { state: { bookingData } })
+      localStorage.setItem('bookingData', JSON.stringify(bookingData))
     }
   }
 

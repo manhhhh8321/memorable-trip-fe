@@ -1,5 +1,5 @@
 export interface Room {
-  id: number
+  id: string
   createdAt: string
   updatedAt: string
   roomType: string
@@ -66,9 +66,12 @@ export interface RoomAmenity {
 export interface CreateBookingDto {
   roomId: string
   note?: string
-  paymentType: PaymentType
-  checkIn: Date
-  checkOut: Date
+  paymentType?: PaymentType
+  checkIn: string
+  checkOut: string
+  duration?: string
+  totalPrice?: number | null | undefined
+  totalDiscount?: number | null | undefined
 }
 
 export enum PaymentType {

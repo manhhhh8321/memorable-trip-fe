@@ -23,7 +23,6 @@ export const BookingDetail = ({ booking, onClose }: BookingDetailProps) => {
     <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>User Details</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Text fontSize='xl' fontWeight='bold' mb={4}>
@@ -50,7 +49,7 @@ export const BookingDetail = ({ booking, onClose }: BookingDetailProps) => {
           <Box mb={4}>
             <Text fontWeight='bold'>Room:</Text>
             <Text>
-              {booking.bookingDate.room.roomType} - {booking.bookingDate.room.roomName}
+              {booking.bookingDate?.room?.roomType} - {booking.bookingDate?.room?.roomName}
             </Text>
           </Box>
           <Box mb={4}>

@@ -26,9 +26,8 @@ export const publicRoutes: RouteObject = {
     { ...RoomDetailRoutes },
     {
       path: '/impress',
-      element: <HomePage/>
+      element: <HomePage />
       // element: <Navigate to={navigationFn.HOME} replace />
-    },
-    { ...paymentRoutes},
+    }
   ]
 }

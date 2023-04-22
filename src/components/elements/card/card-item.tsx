@@ -86,7 +86,7 @@ export const CardItem = ({ data }: any) => {
                 <Text as='span' fontWeight={600} color='black'>
                   ${data?.price}
                 </Text>{' '}
-                đêm
+                night
               </Text>
             </Box>
           </Box>

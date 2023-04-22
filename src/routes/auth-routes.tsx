@@ -8,6 +8,8 @@ import MyListing from '~/modules/room/page/my-listing'
 import { Header } from '~/layouts/components/header'
 import { Box } from '@chakra-ui/react'
 import { Footer } from '~/layouts/components/footer'
+import { paymentRoutes } from './payment'
+import PaymentConfirmationPage from '~/modules/payment/pages/confirmation-cash'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -41,6 +43,17 @@ export const authRoutes: RouteObject = {
         <Box>
           <Header />
           <MyListing />
+          <Footer />
+        </Box>
+      )
+    },
+    { ...paymentRoutes },
+    {
+      path: '/payment/payment-confirm',
+      element: (
+        <Box>
+          <Header />
+          <PaymentConfirmationPage />
           <Footer />
         </Box>
       )
