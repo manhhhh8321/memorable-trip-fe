@@ -11,6 +11,11 @@ export const CreatePayment = () => {
 
   if (!bookingData) {
     bookingData = localStorage.getItem('bookingData')
+    bookingData = JSON.parse(bookingData)
+  }
+
+  if (!bookingData) {
+    return <div>Booking data is not available</div>
   }
 
   const { checkIn, checkOut, duration, roomId, totalPrice, totalDiscount } = bookingData

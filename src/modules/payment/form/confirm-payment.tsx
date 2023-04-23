@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getRoomDetail } from '~/modules/room/api/room.api'
-import { createBooking } from '../api/payment'
+import { createBooking, createPaymentUrl } from '../api/payment'
 import { useNavigate } from 'react-router'
 
 interface PaymentFormProps {
@@ -42,15 +42,31 @@ const PaymentForm = ({ totalPrice, totalDiscount, checkIn, checkOut, duration, r
     }
     setIsSubmitting(true)
 
+    console.log('bookingData', bookingData)
+
     try {
       const booking = await createBooking(bookingData)
       localStorage.removeItem('bookingData')
+
+      let paymentUrl = ''
+
+      if (bookingData.paymentType === 'CARD') {
+        const p = await createPaymentUrl({
+          amount: totalPrice * 23000,
+          orderId: booking.data.payment.id,
+          orderDescription: `Payment for booking ${booking.data.payment.id}`
+        })
+
+        paymentUrl = p.data.url
+
+        localStorage.setItem('paymentUrl', paymentUrl)
+      }
 
       setIsSubmitting(true)
       toast.success('Booking successfully')
       setIsSubmitting(false)
 
-      navigate(`/payment/payment-confirm/:type`)
+      navigate(`/payment/payment-confirm/${bookingData.paymentType}`)
     } catch (error: any) {
       setIsSubmitting(false)
       console.log(error)

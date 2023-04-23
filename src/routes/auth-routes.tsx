@@ -10,6 +10,7 @@ import { Box } from '@chakra-ui/react'
 import { Footer } from '~/layouts/components/footer'
 import { paymentRoutes } from './payment'
 import PaymentConfirmationPage from '~/modules/payment/pages/confirmation-cash'
+import VerifyPaymentPage from '~/modules/payment/pages/verify-payment'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -49,11 +50,22 @@ export const authRoutes: RouteObject = {
     },
     { ...paymentRoutes },
     {
-      path: '/payment/payment-confirm',
+      path: '/payment/payment-confirm/:type',
       element: (
         <Box>
           <Header />
           <PaymentConfirmationPage />
+          <Footer />
+        </Box>
+      )
+    },
+
+    {
+      path: '/payment/verify-payment',
+      element: (
+        <Box>
+          <Header />
+          <VerifyPaymentPage />
           <Footer />
         </Box>
       )

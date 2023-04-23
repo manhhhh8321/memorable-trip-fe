@@ -3,6 +3,7 @@ import { Box, Button, Flex, Heading, Icon, Link, Text } from '@chakra-ui/react'
 import { FiCheckCircle } from 'react-icons/fi'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const PaymentConfirmationPage = () => {
   const [paymentUrl, setPaymentUrl] = useState('')
@@ -24,9 +25,12 @@ const PaymentConfirmationPage = () => {
   const handleClick = async () => {
     setIsLoading(true)
     try {
-      const response = await axios.post('/api/create-payment')
-      setPaymentUrl(response.data.paymentUrl)
+      if (type === 'CARD') {
+        const paymentUrl = localStorage.getItem('paymentUrl')
+        setPaymentUrl(paymentUrl || '')
+      }
     } catch (error) {
+      toast.error('Something went wrong')
       console.error(error)
     }
     setIsLoading(false)
@@ -42,7 +46,7 @@ const PaymentConfirmationPage = () => {
         A confirmation email has been sent to your email address. Please check your inbox and spam folder if you don't
         see it in your inbox.
       </Text>
-      {paymentType === 'CARD' ? (
+      {type === 'CARD' ? (
         paymentUrl ? (
           <Box>
             <Text mb={4}>Please complete your payment using the following link:</Text>
