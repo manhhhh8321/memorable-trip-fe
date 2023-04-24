@@ -14,3 +14,12 @@ export const createPaymentUrl = (data: any) => {
 export const verifyPayment = (data: any) => {
   return axiosClient.put(`/payment/verify-payment`, data)
 }
+
+export const setOrderToRedis = (data: any) => {
+  console.log('data', data)
+  return axiosClient.post(`/payment/save-order-redis`, data)
+}
+
+export const getOrderFromRedis = (data: any) => {
+  return axiosClient.get(`/payment/get-order-redis?${data}`)
+}

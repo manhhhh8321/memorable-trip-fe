@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { getRoomDetail } from '~/modules/room/api/room.api'
-import { createBooking, createPaymentUrl } from '../api/payment'
+import { createBooking, createPaymentUrl, setOrderToRedis } from '../api/payment'
 import { useNavigate } from 'react-router'
 
 interface PaymentFormProps {
@@ -42,8 +42,6 @@ const PaymentForm = ({ totalPrice, totalDiscount, checkIn, checkOut, duration, r
     }
     setIsSubmitting(true)
 
-    console.log('bookingData', bookingData)
-
     try {
       const booking = await createBooking(bookingData)
       localStorage.removeItem('bookingData')
@@ -58,7 +56,10 @@ const PaymentForm = ({ totalPrice, totalDiscount, checkIn, checkOut, duration, r
         })
 
         paymentUrl = p.data.url
+        const url = paymentUrl.split('/verify-payment')[1]
 
+        console.log('aaa', url)
+        await setOrderToRedis({ url: url })
         localStorage.setItem('paymentUrl', paymentUrl)
       }
 

@@ -4,6 +4,7 @@ import { FiCheckCircle } from 'react-icons/fi'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { setOrderToRedis } from '../api/payment'
 
 const PaymentConfirmationPage = () => {
   const [paymentUrl, setPaymentUrl] = useState('')
