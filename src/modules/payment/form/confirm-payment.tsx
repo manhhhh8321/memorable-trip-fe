@@ -57,9 +57,6 @@ const PaymentForm = ({ totalPrice, totalDiscount, checkIn, checkOut, duration, r
 
         paymentUrl = p.data.url
         const url = paymentUrl.split('/verify-payment')[1]
-
-        console.log('aaa', url)
-        await setOrderToRedis({ url: url })
         localStorage.setItem('paymentUrl', paymentUrl)
       }
 

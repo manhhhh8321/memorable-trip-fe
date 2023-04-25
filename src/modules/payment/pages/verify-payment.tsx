@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, Text, Button, Spinner } from '@chakra-ui/react'
-import { getOrderFromRedis, setOrderToRedis, verifyPayment } from '../api/payment'
+import { deleteOrderFromRedis, getOrderFromRedis, setOrderToRedis, verifyPayment } from '../api/payment'
 import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router'
@@ -12,6 +12,7 @@ const VerifyPaymentPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const url = window.location.href.split('/verify-payment')[1]
+    setOrderToRedis({ url: url })
     localStorage.setItem('paymentUrl', url)
     const qs = new URLSearchParams(url)
     const orderId = qs.get('vnp_TxnRef')
@@ -23,7 +24,11 @@ const VerifyPaymentPage = () => {
     try {
       const url = localStorage.getItem('paymentUrl')
 
-      const isOrderExist = await getOrderFromRedis({ url: url })
+      const urlHref = window.location.href.split('/verify-payment')[1]
+      const qs = new URLSearchParams(urlHref)
+      const oId = qs.get('vnp_TxnRef')
+
+      const isOrderExist = await getOrderFromRedis(oId)
       if (!isOrderExist.data) {
         toast.error('Order not found')
         setOrderStatus(false)
@@ -31,6 +36,7 @@ const VerifyPaymentPage = () => {
       } else {
         const response = await verifyPayment({ url: url })
         setOrderStatus(true)
+        await deleteOrderFromRedis(oId)
       }
     } catch (error) {
       toast.error('Something went wrong')

@@ -16,10 +16,13 @@ export const verifyPayment = (data: any) => {
 }
 
 export const setOrderToRedis = (data: any) => {
-  console.log('data', data)
   return axiosClient.post(`/payment/save-order-redis`, data)
 }
 
 export const getOrderFromRedis = (data: any) => {
-  return axiosClient.get(`/payment/get-order-redis?${data}`)
+  return axiosClient.get(`/payment/get-order-redis?orderId=${data}`)
+}
+
+export const deleteOrderFromRedis = (data: any) => {
+  return axiosClient.delete(`/payment/delete-order-redis?orderId=${data}`)
 }
