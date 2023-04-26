@@ -11,6 +11,7 @@ import { Footer } from '~/layouts/components/footer'
 import { paymentRoutes } from './payment'
 import PaymentConfirmationPage from '~/modules/payment/pages/confirmation-cash'
 import VerifyPaymentPage from '~/modules/payment/pages/verify-payment'
+import { ManageUserBookings } from '~/modules/booking/pages/list-booking'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -66,6 +67,16 @@ export const authRoutes: RouteObject = {
         <Box>
           <Header />
           <VerifyPaymentPage />
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: '/booked',
+      element: (
+        <Box>
+          <Header />
+          <ManageUserBookings />
           <Footer />
         </Box>
       )

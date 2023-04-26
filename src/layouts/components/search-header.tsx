@@ -46,6 +46,10 @@ export const HeaderBottom = () => {
   const handleCreateRoom = () => {
     navigate('/room')
   }
+
+  const handleListBooking = () => {
+    navigate('/booked')
+  }
   return (
     <VStack w={'100%'} mt={'0px !important'}>
       <HStack
@@ -127,8 +131,8 @@ export const HeaderBottom = () => {
                     <MenuItem minH='40px'>
                       <Text onClick={handleProfile}>Account</Text>
                     </MenuItem>
-                    <MenuItem minH='40px'>
-                      <Text>Rent a place on Memorable Trip</Text>
+                    <MenuItem minH='40px' onClick={handleListBooking}>
+                      <Text>My booking</Text>
                     </MenuItem>
                     <Link href='/my-listings'>
                       <MenuItem minH='40px'>
