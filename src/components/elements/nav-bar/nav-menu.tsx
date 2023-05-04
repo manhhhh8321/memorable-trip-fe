@@ -1,10 +1,10 @@
 import { As, HStack, Text } from '@chakra-ui/react'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { NavItem } from './nav-item'
 import { navigationFn } from '~/routes'
 import { FiUsers } from 'react-icons/fi'
-import { FaBaby } from 'react-icons/fa'
-import { BiVideoRecording } from 'react-icons/bi'
+import { FaBaby, FaBuilding, FaHome } from 'react-icons/fa'
+import { BiBuildings, BiVideoRecording } from 'react-icons/bi'
 import {
   MdOutlineForum,
   MdOutlineAdminPanelSettings,
@@ -14,7 +14,9 @@ import {
   MdPodcasts,
   MdOutlineBugReport,
   MdOutlineTouchApp,
-  MdImage
+  MdImage,
+  MdOutlineCabin,
+  MdOutlineApartment
 } from 'react-icons/md'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Navigation, Pagination, Controller, Thumbs } from 'swiper'
@@ -22,6 +24,11 @@ import 'swiper/swiper-bundle.css'
 import { Icons } from '~/assets'
 import { BREAK_POINTS } from '~/configs'
 import { DESCRIPTION } from '~/modules/room/interface/room.interface'
+import { TbBrandLinktree, TbBuildingEstate, TbSailboat } from 'react-icons/tb'
+import { HiOutlineBuildingStorefront } from 'react-icons/hi2'
+import { BsHouse } from 'react-icons/bs'
+import { GiPalmTree } from 'react-icons/gi'
+import { useNavigate } from 'react-router'
 // import './styles.css'
 
 export type TNavigation = {
@@ -33,58 +40,58 @@ export type TNavigation = {
 const sidebarNavigations = [
   {
     label: DESCRIPTION[0],
-    to: navigationFn.HOME,
-    icon: MdOutlineAdminPanelSettings
+    to: '/filter?description=1',
+    icon: FaHome
   },
   {
     label: DESCRIPTION[1],
-    to: '/impress',
-    icon: FiUsers
+    to: '/filter?description=2',
+    icon: FaBuilding
   },
   {
     label: DESCRIPTION[2],
-    to: '/fsd',
-    icon: FaBaby
+    to: '/filter?description=3',
+    icon: BiBuildings
   },
   {
     label: DESCRIPTION[3],
-    to: '/sfd',
-    icon: FaBaby
+    to: '/filter?description=4',
+    icon: TbBuildingEstate
   },
   {
     label: DESCRIPTION[4],
-    to: '/fds',
-    icon: MdOutlineArticle
+    to: '/filter?description=5',
+    icon: HiOutlineBuildingStorefront
   },
   {
     label: DESCRIPTION[5],
-    to: '/fsdf',
-    icon: BiVideoRecording
+    to: '/filter?description=6',
+    icon: MdOutlineCabin
   },
   {
-    label: DESCRIPTION[9],
-    to: '/jhg',
-    icon: MdOutlineForum
-  },
-  {
-    label: DESCRIPTION[8],
-    to: navigationFn.HOME,
-    icon: MdOutlineRoomPreferences
+    label: DESCRIPTION[6],
+    to: '/filter?description=7',
+    icon: TbBrandLinktree
   },
   {
     label: DESCRIPTION[7],
-    to: navigationFn.HOME,
-    icon: MdPodcasts
-  },
-  {
-    label: DESCRIPTION[10],
-    to: navigationFn.HOME,
-    icon: MdCast
+    to: '/filter?description=8',
+    icon: BsHouse
   },
   {
     label: DESCRIPTION[8],
-    to: navigationFn.HOME,
-    icon: MdOutlineTouchApp
+    to: '/filter?description=9',
+    icon: MdOutlineApartment
+  },
+  {
+    label: DESCRIPTION[9],
+    to: '/filter?description=10',
+    icon: GiPalmTree
+  },
+  {
+    label: DESCRIPTION[10],
+    to: '/filter?description=11',
+    icon: TbSailboat
   },
   {
     label: 'Banner Management',
@@ -116,6 +123,20 @@ export const NavMenu = (props: SidebarProps) => {
       }
     }
   }
+
+  const navigate = useNavigate()
+
+  const handleClick = (to: string) => {
+    // Check if the clicked item is a description item
+    if (to.includes('/description')) {
+      // Reload the homepage
+      navigate('/')
+    } else {
+      // Navigate to the clicked item
+      navigate(to)
+    }
+  }
+
   const { isCollapsed, toggleCollapsed } = props
   return (
     <HStack className='list-category' my={4} px={{ lg: 8, xl: 8, '2xl': 20 }}>
@@ -144,7 +165,12 @@ export const NavMenu = (props: SidebarProps) => {
         {sidebarNavigations.map((navigation) => {
           return (
             <SwiperSlide style={{ width: 'fit-content' }} key={navigation.label}>
-              <NavItem key={navigation.label} isCollapsed={isCollapsed} {...navigation} />
+              <NavItem
+                key={navigation.label}
+                isCollapsed={isCollapsed}
+                onClick={() => handleClick(navigation.to)}
+                {...navigation}
+              />
             </SwiperSlide>
           )
         })}

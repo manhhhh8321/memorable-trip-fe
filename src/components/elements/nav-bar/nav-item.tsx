@@ -7,8 +7,10 @@ import colors from '~/libs/chakra/foundations/colors'
 type TItem = {
   label: string
   to: string
+  icon?: React.ElementType
+  key: string
   isCollapsed: boolean
-  icon?: As<any> | undefined
+  onClick?: () => void // Added onClick property
 }
 export const NavItem = (props: TItem) => {
   const { label, to, isCollapsed, icon } = props

@@ -60,10 +60,10 @@ const CreateRoomForm = () => {
     }
   }
   return (
-    <Box display={'flex'} maxW='6xl' mt={16} ml={400}>
+    <Box display={'flex'} maxW='2xl' mt={16} ml={420} pb={10} mb={10}>
       <Box
         width={'100%'}
-        maxW='4xl'
+        maxW='2xl'
         mx='auto'
         borderWidth='1px'
         borderRadius='lg'

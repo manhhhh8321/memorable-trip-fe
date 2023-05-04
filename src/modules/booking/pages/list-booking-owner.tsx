@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { VStack, Table, Thead, Tbody, Tr, Th, Td, Button, Spinner, Flex, Text } from '@chakra-ui/react'
 import ReactPaginate from 'react-paginate'
-import { getAllBookings } from '~/modules/dashboard/api/booking'
+import { getAllBookings, getAllBookingsOwner } from '~/modules/dashboard/api/booking'
 import '../../../react-paginate.css'
 import { BookingDetail } from '~/modules/dashboard/components/booking-detail'
 
@@ -61,7 +61,7 @@ export interface Booking {
   }
 }
 
-export const ManageUserBookings = () => {
+export const ManageOwnerBookings = () => {
   const [bookings, setBookings] = useState<Booking[]>([])
   const [page, setPage] = useState(1)
   const bookingsPerPage = 10
@@ -80,7 +80,7 @@ export const ManageUserBookings = () => {
       try {
         if (page < 1) setPage(1)
 
-        const res = await getAllBookings(page)
+        const res = await getAllBookingsOwner(page)
         const data = res.data.items
 
         if (data.length > 0) {
@@ -118,13 +118,14 @@ export const ManageUserBookings = () => {
   return (
     <VStack spacing={4} w='100%'>
       <Text mt={30} fontSize={'2xl'}>
-        My all bookings
+        All booking of your listed rooms
       </Text>
       <Table variant='striped' w='100%'>
         <Thead>
           <Tr>
             <Th>Booking ID</Th>
             <Th>Completed At</Th>
+            <Th>Room Name</Th>
             <Th>Check In</Th>
             <Th>Check Out</Th>
             <Th>Total Price</Th>
@@ -139,6 +140,7 @@ export const ManageUserBookings = () => {
             <Tr key={booking.id}>
               <Td>{booking.id}</Td>
               <Td>{booking.payment.completedAt}</Td>
+              <Td>{booking.bookingDate.room.roomName}</Td>
               <Td>{booking.bookingDate.checkIn}</Td>
               <Td>{booking.bookingDate.checkOut}</Td>
               <Td>{booking.totalPrice}</Td>

@@ -17,38 +17,38 @@ export const CommunityStepOne = ({ stepIndex, setStep }: TStep) => {
           h={10}
         />
       </Text>
-      <Text fontWeight={600}>Cam kết cộng đồng của chúng tôi</Text>
+      <Text fontWeight={600}>Our Community Commitment</Text>
       <Text fontWeight={700} as='h3' pt={4} fontSize={25}>
-      Memorable Trip là nơi mà tất cả mọi người đều có thể cảm thấy là một cộng đồng dành cho họ.
+        Memorable Trip is a place where everyone can feel like a community for them.{' '}
       </Text>
-      <Text py={6}>Để đảm bảo điều này, chúng tôi đề nghị bạn cam kết như sau:</Text>
+      <Text py={6}>To ensure this, we ask that you commit to the following</Text>
       <Text>
-        Tôi đồng ý sẽ đối xử với tất cả mọi người trong cộng đồng Memorable Trip một cách tôn trọng và không phán xét hay thành
-        kiến, bất kể chủng tộc, tôn giáo, nguồn gốc quốc gia, dân tộc, màu da, tình trạng khuyết tật, giới tính, bản
-        dạng giới, khuynh hướng tình dục hoặc tuổi tác.
+        I agree to treat everyone in the Memorable Trip community with respect and non-judgment or prejudice, regardless
+        of race, religion, national origin, ethnicity, color, disability, sex, gender, gender identity, sexual
+        orientation or age.
       </Text>
       <Text py={4} onClick={() => setStep(stepIndex + 1)} fontWeight={600} textDecoration='underline' cursor='pointer'>
-        Tìm hiểu thêm &gt;
+        Learn more &gt;
       </Text>
       <Text pt={6} pb={2}>
-        Điều khoản dịch vụ Memorable Trip
+        Terms of Service Memorable Trip{' '}
       </Text>
       <Text>
-        Tôi cũng chấp nhận{' '}
+        I also accept{' '}
         <Text as='span' fontWeight={600} textDecoration='underline'>
-          Điều khoản dịch vụ, Điều khoản dịch vụ thanh toán, Chính sách quyền riêng tư
+          Terms of Service, Payment Terms of Service, Privacy Policy
         </Text>{' '}
         và{' '}
         <Text as='span' fontWeight={600} textDecoration='underline'>
-          Chính sách không phân biệt của Memorable Trip.
+          Memorable Trip's nondiscrimination policy.
         </Text>
       </Text>
       <VStack w='100%' pt={4} spacing={4}>
-        <Button bgColor='#E00B41' color='white' w='100%'>
-          Đồng ý và tiếp tục
+        <Button onClick={() => navigate(navigationFn.HOME)} bgColor='#E00B41' color='white' w='100%'>
+          Agree and continue
         </Button>
         <Button onClick={() => navigate(navigationFn.HOME)} w='100%'>
-          Từ chối
+          Refuse{' '}
         </Button>
       </VStack>
     </VStack>

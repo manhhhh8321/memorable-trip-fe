@@ -23,6 +23,7 @@ import { AuthForm } from '~/modules/auth/forms'
 import { clearStorage, getAccessToken } from '~/helper'
 import { useMutationLogout } from '~/modules/auth/api'
 import { useNavigate } from 'react-router'
+import { RoomFilterModal } from './room-filter.modal'
 export const HeaderBottom = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(1)
 
@@ -31,7 +32,6 @@ export const HeaderBottom = () => {
   const btnRef = React.useRef(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isAuth = getAccessToken()
-  console.log(isAuth)
   const { mutate } = useMutationLogout()
   const handleLogout = () => {
     mutate()
@@ -40,7 +40,7 @@ export const HeaderBottom = () => {
   }
 
   const handleProfile = () => {
-    navigate('/user')
+    navigate('/profile')
   }
 
   const handleCreateRoom = () => {
@@ -49,6 +49,12 @@ export const HeaderBottom = () => {
 
   const handleListBooking = () => {
     navigate('/booked')
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true)
   }
   return (
     <VStack w={'100%'} mt={'0px !important'}>
@@ -80,7 +86,15 @@ export const HeaderBottom = () => {
 
         <Popover isLazy>
           <PopoverTrigger>
-            <Box cursor='pointer' border={'1px solid #ccc'} py={2} px={4} borderRadius={50} ref={btnRef}>
+            <Box
+              cursor='pointer'
+              border={'1px solid #ccc'}
+              py={2}
+              px={4}
+              borderRadius={50}
+              ref={btnRef}
+              onClick={handleModalOpen}
+            >
               <HStack>
                 <Text>Any destination</Text>
                 <Text>Any week</Text>
@@ -88,12 +102,10 @@ export const HeaderBottom = () => {
                 <Text>
                   <Search2Icon />
                 </Text>
+                <RoomFilterModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
               </HStack>
             </Box>
           </PopoverTrigger>
-          <PopoverContent>
-            <PopoverBody>chdkfsdfdsf</PopoverBody>
-          </PopoverContent>
         </Popover>
         <Box>
           <HStack spacing={3}>
@@ -139,6 +151,11 @@ export const HeaderBottom = () => {
                         <Text>My listings</Text>
                       </MenuItem>
                     </Link>
+                    <Link href='/booked-owner'>
+                      <MenuItem minH='40px'>
+                        <Text>My booked listing</Text>
+                      </MenuItem>
+                    </Link>
                   </MenuGroup>
                   <MenuDivider />
                   <MenuGroup>
@@ -153,10 +170,22 @@ export const HeaderBottom = () => {
               ) : (
                 <MenuList zIndex={10}>
                   <MenuGroup>
-                    <MenuItem onClick={()=>{ setSelectedIndex(1); onOpen()}} minH='48px'>
+                    <MenuItem
+                      onClick={() => {
+                        setSelectedIndex(1)
+                        onOpen()
+                      }}
+                      minH='48px'
+                    >
                       <Text>Log in</Text>
                     </MenuItem>
-                    <MenuItem onClick={()=>{ setSelectedIndex(2); onOpen()}} minH='40px'>
+                    <MenuItem
+                      onClick={() => {
+                        setSelectedIndex(2)
+                        onOpen()
+                      }}
+                      minH='40px'
+                    >
                       <Text>Register</Text>
                     </MenuItem>
                   </MenuGroup>

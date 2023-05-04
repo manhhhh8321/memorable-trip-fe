@@ -12,6 +12,8 @@ import { paymentRoutes } from './payment'
 import PaymentConfirmationPage from '~/modules/payment/pages/confirmation-cash'
 import VerifyPaymentPage from '~/modules/payment/pages/verify-payment'
 import { ManageUserBookings } from '~/modules/booking/pages/list-booking'
+import { ManageOwnerBookings } from '~/modules/booking/pages/list-booking-owner'
+import { MyAccountForm } from '~/modules/profile/page/my-account'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -77,6 +79,26 @@ export const authRoutes: RouteObject = {
         <Box>
           <Header />
           <ManageUserBookings />
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: '/booked-owner',
+      element: (
+        <Box>
+          <Header />
+          <ManageOwnerBookings />
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: '/profile',
+      element: (
+        <Box>
+          <Header />
+          <MyAccountForm />
           <Footer />
         </Box>
       )

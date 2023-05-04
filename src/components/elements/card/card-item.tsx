@@ -1,26 +1,26 @@
 import { Box, Card, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react'
-import moment from 'moment';
+import moment from 'moment'
 import React from 'react'
 import { Icons } from '~/assets'
 
 type TImage = {
-  image_id: number;
-  image_url: string;
-  format: string;
+  image_id: number
+  image_url: string
+  format: string
 }
 interface ICard {
-  id: number;
-  title: string;
-  description: string;
-  time: string;
-  distance: string;
-  price: string;
-  isFavorite: boolean;
-  images: TImage[];
-  rate: number;
+  id: number
+  title: string
+  description: string
+  time: string
+  distance: string
+  price: string
+  isFavorite: boolean
+  images: TImage[]
+  rate: number
 }
 interface TData {
-  data: ICard;
+  data: ICard
 }
 
 const fakeImages = [
@@ -51,12 +51,17 @@ export const CardItem = ({ data }: any) => {
     <Box w={'100%'} cursor='pointer'>
       <Box w={'100%'} minH={'300'}>
         <VStack>
-          <Box position={'relative'} w={'100%'}>
+          <Box position={'relative'} w={'100%'} h={'0'} pb={'80%'} borderRadius={15} overflow={'hidden'}>
             <Image
               borderRadius={15}
               src={data?.image[0]?.image_url || fakeImages[Math.floor(Math.random() * fakeImages.length)]}
               w={'100%'}
-              h={{ lg: 300, xl: 290, '2xl': 280 }}
+              h={'100%'}
+              objectFit={'cover'}
+              objectPosition={'center'}
+              position={'absolute'}
+              top={'0'}
+              left={'0'}
             />
             <Text position={'absolute'} top={5} right={5} cursor='pointer'>
               <Icons.heart

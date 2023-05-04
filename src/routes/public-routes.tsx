@@ -1,17 +1,21 @@
-import { RouteObject } from 'react-router'
-import { Navigate } from 'react-router-dom'
-
-// import { BlankPage } from "@/modules";
-// import { DefaultLayout } from "@/layouts";
-
-import { RequiredAuth } from './required-auth'
-import { navigationFn } from './navigation-fn'
+import { RouteObject, useLocation, useParams } from 'react-router'
 import { DefaultLayout } from '~/layouts'
-import { BlankPage, HomePage } from '~/modules'
-import { homeRoutes } from './home-routes'
+import { BlankPage } from '~/modules'
 import { communityRoutes } from './community-routes'
 import RoomDetailRoutes from './room-detail-route'
-import { paymentRoutes } from './payment'
+import { HomePage } from '~/modules'
+import { useMemo } from 'react'
+
+const HomePageWrapper = () => {
+  const { search } = useLocation()
+  // parse the search string to extract the filter parameter
+  const filter = useMemo(() => {
+    const params = new URLSearchParams(search)
+
+    return params
+  }, [search])
+  return <HomePage filter={search} />
+}
 
 export const publicRoutes: RouteObject = {
   element: <DefaultLayout />,
@@ -19,14 +23,20 @@ export const publicRoutes: RouteObject = {
   children: [
     {
       index: true,
-      element: <HomePage />
+      element: <HomePageWrapper />
       // element: <Navigate to={navigationFn.HOME} replace />
     },
     { ...communityRoutes },
     { ...RoomDetailRoutes },
+
     {
-      path: '/impress',
-      element: <HomePage />
+      path: '/',
+      element: <HomePage description={null} />
+      // element: <Navigate to={navigationFn.HOME} replace />
+    },
+    {
+      path: '/filter',
+      element: <HomePageWrapper />
       // element: <Navigate to={navigationFn.HOME} replace />
     }
   ]
