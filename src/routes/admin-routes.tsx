@@ -13,8 +13,10 @@ import { AdminLoginLayout } from '~/modules/dashboard/page/login-form'
 import { EditUserForm } from '~/modules/dashboard/page/edit-user'
 import { EditUser } from '~/modules/dashboard/components/edit-user'
 import { ManageBookings } from '~/modules/dashboard/components/manage-booking'
+import { AdminBlockedAuth } from './blocked-auth'
 
 export const adminRoutes: RouteObject = {
+  // element: <AdminBlockedAuth />,
   errorElement: <BlankPage />,
   children: [
     {

@@ -12,6 +12,7 @@ const MyListing = () => {
   } = useQuery('rooms', async () => {
     const response = await getRoomByUser()
     const d = response.data
+
     return response.data
   })
 

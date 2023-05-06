@@ -23,9 +23,9 @@ export const filterRoomSchema = z.object({
   numberOfBedroom: z.optional(z.number()),
   numberOfBed: z.optional(z.number()),
   numberOfBathroom: z.optional(z.number()),
-  roomType: z.optional(z.enum([RoomType.ENTIRE_HOME, RoomType.ROOM, RoomType.SHARED_ROOM])),
-  description: z.optional(z.string()),
-  city: z.optional(z.string()),
+  roomType: z.optional(z.any()),
+  description: z.optional(z.any()),
+  city: z.optional(z.any()),
   amenities: z.optional(z.array(z.enum(AMENITIES))),
   checkIn: z.optional(z.date()),
   checkOut: z.optional(z.date()),
@@ -44,7 +44,8 @@ const editRoomSchema = z.object({
   city: z.optional(z.enum(VALID_PROVINCES_CODE)),
   amenities: z.optional(z.array(z.enum(AMENITIES))),
   image: z.optional(z.any()),
-  address: z.optional(z.string())
+  address: z.optional(z.string()),
+  isActive: z.optional(z.any()),
 })
 
 export default roomSchema

@@ -54,7 +54,7 @@ export const CardItem = ({ data }: any) => {
           <Box position={'relative'} w={'100%'} h={'0'} pb={'80%'} borderRadius={15} overflow={'hidden'}>
             <Image
               borderRadius={15}
-              src={data?.image[0]?.image_url || fakeImages[Math.floor(Math.random() * fakeImages.length)]}
+              src={data?.image[0]?.url || fakeImages[Math.floor(Math.random() * fakeImages.length)]}
               w={'100%'}
               h={'100%'}
               objectFit={'cover'}
@@ -91,7 +91,7 @@ export const CardItem = ({ data }: any) => {
                 <Text as='span' fontWeight={600} color='black'>
                   ${data?.price}
                 </Text>{' '}
-                night
+                / night
               </Text>
             </Box>
           </Box>

@@ -1,13 +1,21 @@
-import { Box, Flex, Heading, Icon, Link, Spacer, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Icon, Link, Spacer, Text } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { RiUserLine, RiBook2Line } from 'react-icons/ri'
 import SimpleSidebar from '../components/side-bar'
+import { useEffect } from 'react'
+import jwtDecode from 'jwt-decode'
+import { getUserDetail } from '../api/user'
 
 type DashboardLayoutProps = {
   children: React.ReactNode
 }
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+  const handleLogout = () => {
+    localStorage.removeItem('user')
+    window.location.href = '/'
+  }
+
   return (
     <Flex direction='column' h='100vh'>
       <Flex as='nav' align='center' justify='space-between' p='4' bg='gray.800'>
@@ -15,9 +23,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           Admin Dashboard
         </Heading>
         <Spacer />
-        <Box color='white' fontSize='sm'>
-          User Name
-        </Box>
+        <Button onClick={handleLogout} color='black' fontSize='sm'>
+          Log out
+        </Button>
       </Flex>
       <Flex flexGrow={1} overflowY='auto'>
         <Box as='aside' w='16rem' bg='gray.100' p='4'>
@@ -25,7 +33,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <Heading size='sm' mb='2'>
               Navigation
             </Heading>
-            <SimpleSidebar/>
+            <SimpleSidebar />
           </Box>
         </Box>
         <Box flexGrow={1} p='4'>

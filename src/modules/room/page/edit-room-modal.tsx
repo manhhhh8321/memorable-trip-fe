@@ -52,7 +52,8 @@ const EditRoomModal = ({ isOpen, onClose, room }: EditRoomModalProps) => {
       city: room.city,
       amenities: room.amenities,
       image: room.image,
-      address: room.address
+      address: room.address,
+      isActive: room.isActive
     }
   })
 
@@ -61,7 +62,6 @@ const EditRoomModal = ({ isOpen, onClose, room }: EditRoomModalProps) => {
       const roomDetails = await getRoomDetail(room.id)
       const rd = roomDetails.data
 
-      console.log('rd', rd)
       setValue('roomName', rd.roomName)
       setValue('price', rd.price)
       setValue('numberOfLivingRoom', rd.numberOfLivingRoom)
@@ -78,6 +78,8 @@ const EditRoomModal = ({ isOpen, onClose, room }: EditRoomModalProps) => {
       )
       setValue('image', rd.image)
       setValue('address', rd.address)
+
+      rd.isActive ? setValue('isActive', 'true') : setValue('isActive', 'false')
     }
 
     fetchRoomDetails()
@@ -86,6 +88,8 @@ const EditRoomModal = ({ isOpen, onClose, room }: EditRoomModalProps) => {
   const onSubmit = async (data: any) => {
     try {
       delete data.image
+
+      data.isActive = data.isActive === 'true' ? true : false
       const update = await updateRoom(room.id, data)
 
       if (update) {
@@ -223,6 +227,15 @@ const EditRoomModal = ({ isOpen, onClose, room }: EditRoomModalProps) => {
               </CheckboxGroup>
 
               <FormErrorMessage>{errors.amenities?.message?.toString()}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.isActive} mt={5}>
+              <FormLabel htmlFor='isActive'>Room status</FormLabel>
+              <Select {...register('isActive')}>
+                <option value='true'>Active</option>
+                <option value='false'>Inactive</option>
+              </Select>
+              <FormErrorMessage>{errors.isActive?.message?.toString()}</FormErrorMessage>
             </FormControl>
           </ModalBody>
 

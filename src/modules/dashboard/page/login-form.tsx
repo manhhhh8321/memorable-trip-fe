@@ -15,6 +15,7 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { useMutationLogin } from '../api/login.api'
+import { getUserDetail } from '../api/user'
 
 type TLogin = {
   email: string
@@ -30,7 +31,7 @@ export const AdminLoginLayout = () => {
 
   const toast = useToast()
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     mutate(loginData)
   }
 

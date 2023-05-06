@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate'
 import { getAllBookings } from '~/modules/dashboard/api/booking'
 import '../../../react-paginate.css'
 import { BookingDetail } from '~/modules/dashboard/components/booking-detail'
+import { ConfirmChangeStatusModal } from './confirm-modal'
 
 export interface Booking {
   id: number

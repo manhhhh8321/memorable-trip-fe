@@ -3,7 +3,7 @@ import { Room, RoomAmenity } from '../interface/room.interface'
 import { getRoomDetail } from '../api/room.api'
 import { useParams } from 'react-router'
 import { Box, Flex, SimpleGrid, Stack, Text } from '@chakra-ui/layout'
-import { Avatar, Icon, Image, Tag, Wrap, WrapItem } from '@chakra-ui/react'
+import { Avatar, Icon, Image, Tag, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -17,6 +17,7 @@ import { BsTree } from 'react-icons/bs'
 import BookCalendar from './calendar'
 import 'react-datepicker/dist/react-datepicker.css'
 import Footer from './footer'
+import RoomOwnerCard from './owner-card'
 
 interface RoomDetailProps {
   roomId: number
@@ -81,9 +82,8 @@ export const RoomDetailPage: React.FC = () => {
     roomAmenities
   } = room
 
-  console.log(roomAmenities && roomAmenities.length > 0)
   return (
-    <Flex flexDirection={'column'}>
+    <VStack flexDirection={'column'}>
       <Flex>
         <Flex justifyContent='center' marginTop={'30'}>
           <SimpleGrid columns={[1, 1, 2]} spacing={10} width='80%'>
@@ -207,7 +207,7 @@ export const RoomDetailPage: React.FC = () => {
           </Box>
         </Box>
       </Flex>
-    </Flex>
+    </VStack>
   )
 }
 

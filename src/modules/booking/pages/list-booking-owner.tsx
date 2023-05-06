@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
-import { VStack, Table, Thead, Tbody, Tr, Th, Td, Button, Spinner, Flex, Text } from '@chakra-ui/react'
+import { VStack, Table, Thead, Tbody, Tr, Th, Td, Button, Spinner, Flex, Text, Select } from '@chakra-ui/react'
 import ReactPaginate from 'react-paginate'
 import { getAllBookings, getAllBookingsOwner } from '~/modules/dashboard/api/booking'
 import '../../../react-paginate.css'
 import { BookingDetail } from '~/modules/dashboard/components/booking-detail'
+import { ConfirmChangeStatusModal } from './confirm-modal'
+import { updateBooking } from '../api/booking.api'
+import { toast } from 'react-toastify'
 
 export interface Booking {
   id: number
@@ -60,6 +63,7 @@ export interface Booking {
     completedAt: string | null
   }
 }
+const options = ['PENDING', 'CANCELLED']
 
 export const ManageOwnerBookings = () => {
   const [bookings, setBookings] = useState<Booking[]>([])
@@ -69,6 +73,9 @@ export const ManageOwnerBookings = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [bookingIds, setBookingIds] = useState<Set<string>>(new Set())
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null)
+  const [bookStatus, setBookStatus] = useState('')
+  const [isConfirmChangeStatusOpen, setIsConfirmChangeStatusOpen] = useState(false)
+  const [bookingId, setBookingId] = useState('')
 
   const handleViewClick = (booking: Booking) => {
     setSelectedBooking(booking)
@@ -115,11 +122,33 @@ export const ManageOwnerBookings = () => {
     setPage(newPage)
   }
 
+  const handleStatusChange = (id, status) => {
+    setBookStatus(status)
+    setBookingId(id)
+    setIsConfirmChangeStatusOpen(true)
+  }
+
+  const confirmChangeStatus = async () => {
+    setIsLoading(true)
+    try {
+      await updateBooking(bookingId, { status: bookStatus })
+      setIsLoading(false)
+      setIsConfirmChangeStatusOpen(false)
+      window.location.reload()
+      toast.success('Change status successfully')
+    } catch (error) {
+      toast.error('Something went wrong')
+      console.error(error)
+      setIsLoading(false)
+    }
+  }
+
   return (
     <VStack spacing={4} w='100%'>
       <Text mt={30} fontSize={'2xl'}>
         All booking of your listed rooms
       </Text>
+
       <Table variant='striped' w='100%'>
         <Thead>
           <Tr>
@@ -131,6 +160,7 @@ export const ManageOwnerBookings = () => {
             <Th>Total Price</Th>
             <Th>Total Discount</Th>
             <Th>Duration</Th>
+            <Th>Book Status</Th>
             <Th>Payment Status</Th>
             <Th>Actions</Th>
           </Tr>
@@ -146,10 +176,14 @@ export const ManageOwnerBookings = () => {
               <Td>{booking.totalPrice}</Td>
               <Td>{booking.totalDiscount}</Td>
               <Td>{booking.bookingDate.duration}</Td>
+              <Td>{booking.status}</Td>
               <Td>{booking.payment.status}</Td>
               <Td>
                 <Button size='sm' colorScheme='blue' mr={1} onClick={() => handleViewClick(booking)}>
                   View
+                </Button>
+                <Button size='sm' colorScheme='red' mr={1} onClick={() => handleStatusChange(booking.id, 'CANCELLED')}>
+                  Cancel
                 </Button>
               </Td>
             </Tr>
@@ -161,6 +195,11 @@ export const ManageOwnerBookings = () => {
           <Spinner size={'xl'} />
         </Flex>
       )}
+      <ConfirmChangeStatusModal
+        isOpen={isConfirmChangeStatusOpen}
+        onClose={() => setIsConfirmChangeStatusOpen(false)}
+        onConfirm={confirmChangeStatus}
+      />
       <ReactPaginate
         pageCount={pageCount}
         marginPagesDisplayed={2}

@@ -59,7 +59,7 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
   const onSubmit = async (data: any) => {
     try {
       setSubmitting(true)
-
+      console.log('aa', valuePriceRange)
       if (data.checkIn > data.checkOut) {
         toast.error('Check in date must be before check out date')
         return
@@ -67,6 +67,7 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
 
       data = {
         ...data,
+        price: valuePriceRange[1],
         checkIn: data?.checkIn ? moment(data?.checkIn).format('YYYY-MM-DD') : null,
         checkOut: data?.checkOut ? moment(data?.checkOut).format('YYYY-MM-DD') : null
       }
@@ -75,6 +76,10 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
         delete data.checkIn
         delete data.checkOut
       }
+
+      data?.city ? data.city : delete data.city
+      data?.description ? data.description : delete data.description
+      data?.roomType ? data.roomType : delete data.roomType
 
       const query = queryString.stringify(data)
 
@@ -119,6 +124,7 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
             <FormControl isInvalid={!!errors.roomType}>
               <FormLabel htmlFor='roomType'>Room Type</FormLabel>
               <Select {...register('roomType')}>
+                <option value=''>Select room type</option>
                 <option value='ROOM'>Room</option>
                 <option value='ENTIRE_HOME'>Entire home</option>
                 <option value='SHARED_ROOM'>Shared</option>
@@ -128,6 +134,7 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
             <FormControl mt={5} isInvalid={!!errors.description}>
               <FormLabel htmlFor='description'>Description</FormLabel>
               <Select {...register('description')}>
+                <option value=''>Select description</option>
                 {DESCRIPTION.map((option: any, index) => (
                   <option key={option} value={index + 1}>
                     {option}
@@ -140,6 +147,7 @@ export const RoomFilterModal = ({ isOpen, onClose }: Props) => {
             <FormControl mt={5} isInvalid={!!errors.city}>
               <FormLabel htmlFor='city'>City</FormLabel>
               <Select {...register('city')} value={watch('city')} onChange={(e) => setValue('city', e.target.value)}>
+                <option value=''>Select city</option>
                 {VALID_PROVINCES_CODE.map((city: any, index) => (
                   <option key={city} value={city}>
                     {city}
