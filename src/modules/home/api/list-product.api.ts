@@ -20,3 +20,11 @@ export const useQueryListProduct = (params?: Record<string, unknown>) => {
 export const getAllRooms = (filter?: any) => {
   return trackPromise(axiosClient.get(`/room${filter}&limit=20`))
 }
+
+export const addOrRemoveWishlist = (id: string) => {
+  return trackPromise(axiosClient.post('/wishlist', { roomId: id }))
+}
+
+export const getWishList = () => {
+  return trackPromise(axiosClient.get('/wishlist'))
+}

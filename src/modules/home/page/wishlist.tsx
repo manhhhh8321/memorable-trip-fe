@@ -19,39 +19,31 @@ type ApiResponse = {
   nextPage: number | null
 }
 
-export const HomePage = (filter?: any) => {
+export const WishList = () => {
   const [page, setPage] = useState(1)
   const [room, setRoom] = useState<any>([])
   const [isLoading, setIsLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [currentDescription, setCurrentDescription] = useState<any>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState([])
 
   const fetchRoom = async (page: number) => {
     setIsLoading(true)
 
-    const { description } = filter
+    const res = await getWishList()
 
-    if (description?.description !== currentDescription || filter.filter) {
-      setCurrentDescription(description?.description)
-      setRoom([]) // reset rooms array
-      setPage(1) // reset page number
-      setHasMore(true) // reset hasMore flag
-    }
+    console.log('res', res)
 
-    const pageQuery = queryString.stringify({ page })
-    let query = ''
+    const roomData = res.data.map((item: any) => item.room)
 
-    filter?.filter ? (query = `${filter.filter}&${pageQuery}`) : (query = `?${pageQuery}`)
-    console.log(query)
-    const res = await getAllRooms(query)
-
-    if (res.data.items.length === 0) {
+    if (roomData.length === 0) {
       setHasMore(false)
     }
 
-    setRoom((prev: any) => [...prev, ...res.data.items])
+    console.log('roomData', roomData)
+
+    setRoom((prev: any) => [...prev, ...roomData])
 
     setIsLoading(false)
   }
@@ -64,7 +56,7 @@ export const HomePage = (filter?: any) => {
 
   useEffect(() => {
     fetchRoom(page)
-  }, [page, filter])
+  }, [page])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -88,7 +80,7 @@ export const HomePage = (filter?: any) => {
   }, [])
 
   return (
-    <Box>
+    <Box p={10}>
       <Box>
         <Grid
           templateColumns={{ lg: 'repeat(4, 1fr)', xl: 'repeat(4, 1fr)', '2xl': 'repeat(6, 1fr)' }}

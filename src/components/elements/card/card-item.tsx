@@ -1,7 +1,11 @@
 import { Box, Card, Flex, HStack, Image, Text, VStack } from '@chakra-ui/react'
+import jwtDecode from 'jwt-decode'
+import { debounce } from 'lodash'
 import moment from 'moment'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { Icons } from '~/assets'
+import { addOrRemoveWishlist } from '~/modules/home/api'
 
 type TImage = {
   image_id: number
@@ -45,8 +49,35 @@ const fakeImages = [
   'https://photo-cms-viettimes.zadn.vn/460x306/Uploaded/2023/haovna/2017_08_12/1692704_fksu.jpg'
 ]
 
-export const CardItem = ({ data }: any) => {
+export const CardItem = ({ data, isFavorite }: { data: any; isFavorite: boolean }) => {
+  console.log(isFavorite)
   // const { id, title, description, time, distance, price, isFavorite, images, rate } = data
+  const [currentUser, setCurrentUser] = React.useState<any>(null)
+  const [listFavorite, setListFavorite] = React.useState<any>([])
+  const handleWishlist = async (roomId: any) => {
+    const user = localStorage.getItem('user')
+
+    if (!user) {
+      toast.error('Please login to add to wishlist')
+    }
+
+    if (user) {
+      const { accessToken } = JSON.parse(user)
+
+      const decode = jwtDecode(accessToken) as any
+      setCurrentUser(decode.id)
+      try {
+        const data = await addOrRemoveWishlist(roomId)
+        toast.success(data.data)
+        debounce(() => {
+          window.location.reload()
+        }, 1000)()
+      } catch (error) {
+        toast.error('Something went wrong')
+      }
+    }
+  }
+
   return (
     <Box w={'100%'} cursor='pointer'>
       <Box w={'100%'} minH={'300'}>
@@ -65,8 +96,13 @@ export const CardItem = ({ data }: any) => {
             />
             <Text position={'absolute'} top={5} right={5} cursor='pointer'>
               <Icons.heart
-                stroke={data?.isActive ? 'red' : 'white'}
-                color={data?.isActive ? 'red' : 'rgba(0,0,0,.1)'}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  handleWishlist(data.id)
+                }}
+                stroke={isFavorite ? 'red' : 'white'}
+                color={isFavorite ? 'red' : 'rgba(0,0,0,.1)'}
               />
             </Text>
           </Box>

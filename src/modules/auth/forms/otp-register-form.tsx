@@ -52,7 +52,7 @@ export const OTPFormPhone = ({ hidden, setStep, onCloseAuth, onOpenFinish }: IRe
         toast.success(response.data.message)
       }
     } catch (error: any) {
-      toast.error(error.response.data.message[0] || 'Something went wrong')
+      toast.error('Something went wrong')
       console.log(error)
     }
   }
@@ -91,7 +91,7 @@ export const OTPFormPhone = ({ hidden, setStep, onCloseAuth, onOpenFinish }: IRe
           onClick={() => setStep(enumRegister.PHONE_REGISTER)}
           disabled={!isValid}
         >
-          Continue
+          Back
         </Button>
         <Button
           type='submit'

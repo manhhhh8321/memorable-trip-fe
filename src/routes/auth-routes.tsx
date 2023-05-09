@@ -14,6 +14,7 @@ import VerifyPaymentPage from '~/modules/payment/pages/verify-payment'
 import { ManageUserBookings } from '~/modules/booking/pages/list-booking'
 import { ManageOwnerBookings } from '~/modules/booking/pages/list-booking-owner'
 import { MyAccountForm } from '~/modules/profile/page/my-account'
+import { WishList } from '~/modules/home/page/wishlist'
 
 export const authRoutes: RouteObject = {
   element: <BlockedAuth />,
@@ -99,6 +100,16 @@ export const authRoutes: RouteObject = {
         <Box>
           <Header />
           <MyAccountForm />
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: '/wishlist',
+      element: (
+        <Box>
+          <Header />
+          <WishList />
           <Footer />
         </Box>
       )

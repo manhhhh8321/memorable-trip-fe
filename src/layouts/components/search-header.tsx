@@ -51,6 +51,10 @@ export const HeaderBottom = () => {
     navigate('/booked')
   }
 
+  const handleWishlist = () => {
+    navigate('/wishlist')
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleModalOpen = () => {
@@ -134,7 +138,7 @@ export const HeaderBottom = () => {
                     <MenuItem minH='40px'>
                       <Text>Trips</Text>
                     </MenuItem>
-                    <MenuItem minH='40px'>
+                    <MenuItem minH='40px' onClick={handleWishlist}>
                       <Text>Wish Lists</Text>
                     </MenuItem>
                   </MenuGroup>
